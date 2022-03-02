@@ -16,84 +16,72 @@
 #include <string.h>
 #include <ctype.h>
 
-void	ft_lstadd_back(t_ps **lst, t_ps *new)
-{
-	t_ps	*root;
 
-	root = *lst;
+void	ft_lstadd_front(t_ps **lst, t_ps **head, t_ps *new)
+{
 	if (!(*lst))
+	{
 		*lst = new;
+		*head = *lst;
+		(*lst)->previous = NULL;
+	}
 	else
 	{
-		while (root->next != NULL)
-			root = root->next;
-		root->next = new;
-		new->previous = root;
+		new->next = *lst;
+		(*lst)->previous = new;
+		*lst = new;
+		*head = *lst;
 	}
 }
 
-
-
-void	push(t_ps **var, t_ps **head, char *s, int i)
+void	reset(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 {
-	t_ps	*tmp;
-
-	tmp = (t_ps*)malloc(sizeof(t_ps));
-
-	tmp->a = atoi(s);
-
-	if (i == 1)
-		*head = tmp;
-
-	printf("%d\n", tmp->a);
-
-	tmp->next = NULL;
-	ft_lstadd_back(var, tmp);
+	*var_a = *head_a;
+	*var_b = *head_b;
 }
 
-void	sa(t_ps **var, t_ps *head)
-{
 
-}
 
 int main(int argc, char *argv[])
 {
-	t_ps	*var;
-	t_ps	*head;
+	t_ps	*var_a;
+	t_ps	*var_b;
+	t_ps	*head_a;
+	t_ps	*head_b;
 	int i;
 	int j;
 
 	i = 1;
+		
 	j = 0;
 	if (argc > 2)
 	{
-		while(argv[i])
-		{
-			while (argv[i][j])
-			{
-				if (!(isdigit(argv[i][j])))
-					return 0;
-				j++;
-			}
-			i++;
-		}
-		i = 1;
 		while (argv[i])
 		{
-			push(&var, &head, argv[i], i);	
+			push(&var_a, &head_a, atoi(argv[i]));	
 			i++;
 		}
-		var = head;
-		var = var->next;
-		printf("%d\n", var->a);
-		var = var->next;
-		printf("%d\n", var->a);
-		var = var->previous;
-		printf("%d\n", var->a);
-		//sa(&var, head);
-		// sb();
-		// ss();
 
+		// rrb(&var_b, &head_b);
+		sa(&var_a, &head_a);
+		reset(&var_a, &head_a, &var_b, &head_b);
+		pb(&var_a, &head_a, &var_b, &head_b);
+		reset(&var_a, &head_a, &var_b, &head_b);
+		sb(&var_b, &head_b);
+		//reset(&var_a, &head_a, &var_b, &head_b);
+		while (var_a)
+		{
+			printf("%d\n", var_a->number);
+			var_a = var_a->next;
+		}
+		printf("----\n");
+		while (var_b)
+		{
+			printf("%d\n", var_b->number);
+			var_b = var_b->next;
+		}
+		// reset(&var_a, &head_a, &var_b, &head_b);	
 	}
+	
 	return 0;
 }
