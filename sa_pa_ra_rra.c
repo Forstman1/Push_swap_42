@@ -23,12 +23,25 @@ void	sa(t_ps **var, t_ps	**head)
 	t_ps *lst;
 	int a1;
 	int a2;
+	int count;
 
 	a1 = 0;
 	a2 = 0;
+	count = 0;
 	lst = *var;
 	if (!(*var))
 		return ;
+	while (lst)
+	{
+		lst = lst->next;
+		count++;
+	}
+	if (count == 1)
+	{
+		*var = *head;
+		return ;
+	}
+	lst = *head;
 	a1 = lst->number;
 	lst = lst->next;
 	a2 = lst->number;
@@ -49,7 +62,7 @@ void	ra(t_ps **var_a, t_ps **head_a)
 	b = 0;
 	if (!(*var_a))
 		return ;
-	while (lst)
+	while (lst->next)
 	{
 		a = lst->number;
 		lst = lst->next;
@@ -87,5 +100,5 @@ void	rra(t_ps **var_a, t_ps **head_a)
 		lst->number = b;
 		lst = lst->previous;
 	}
-	lst = *head_a;
+	//lst = *head_a;
 }

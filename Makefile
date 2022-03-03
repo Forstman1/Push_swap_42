@@ -26,4 +26,4 @@ fclean:	clean
 	@rm -f  $(NAME) 
 
 execute: $(NAME) push_swap.c
-	@./push_swap 1 2 3 4 5 6 7 8 9
+	@./push_swap 6 2 9 5 4 7

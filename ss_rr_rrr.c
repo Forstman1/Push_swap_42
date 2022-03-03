@@ -3,10 +3,10 @@
 #include "push_swap.h"
 
 
-void	ss(t_ps **var_a, t_ps **var_b)
+void	ss(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps	**head_b)
 {
-	sa(var_a);
-	sb(var_b);
+	sa(var_a, head_a);
+	sb(var_b, head_b);
 }
 
 void	rr(t_ps	**var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)

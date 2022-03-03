@@ -28,8 +28,8 @@ void	ft_lstadd_front(t_ps **lst, t_ps **head, t_ps *new)
 	else
 	{
 		new->next = *lst;
-		(*lst)->previous = new;
 		*lst = new;
+		(*lst)->previous = new;
 		*head = *lst;
 	}
 }
@@ -48,40 +48,66 @@ int main(int argc, char *argv[])
 	t_ps	*var_b;
 	t_ps	*head_a;
 	t_ps	*head_b;
+	t_ps	*tail_a;
+	t_ps	*tail_b;
 	int i;
+	int i_value;
+	int pivote;
 	int j;
+	int j_value;
 
 	i = 1;
-		
+	i_value = 0;
+	j_value = 0;
 	j = 0;
+	pivote = 0;
 	if (argc > 2)
 	{
 		while (argv[i])
 		{
-			push(&var_a, &head_a, atoi(argv[i]));	
+			push(&var_a, &head_a, &tail_a, atoi(argv[i]));	
 			i++;
 		}
-
-		// rrb(&var_b, &head_b);
-		sa(&var_a, &head_a);
-		reset(&var_a, &head_a, &var_b, &head_b);
-		pb(&var_a, &head_a, &var_b, &head_b);
-		reset(&var_a, &head_a, &var_b, &head_b);
-		sb(&var_b, &head_b);
-		//reset(&var_a, &head_a, &var_b, &head_b);
+		i = 0;
+		j = 0;
+		pivote = var_a->number;
 		while (var_a)
 		{
-			printf("%d\n", var_a->number);
+			var_a = var_a->next;
+			i_value = var_a->number;
+			if (i_value > pivote)
+			{
+				
+				reset(&var_a, &head_a, &var_b, &head_b);
+				// while (i >= 0)
+				// {
+				// 	//reset(&var_a, &head_a, &var_b, &head_b);
+				// 	pb(&var_a, &head_a, &var_b, &head_b);
+				//  	i--;
+				// }
+				reset(&var_a, &head_a, &var_b, &head_b);
+				//rra(&var_a, &head_a);
+				//reset(&var_a, &head_a, &var_b, &head_b);
+				sa(&var_a, &head_a);
+				//reset(&var_a, &head_a, &var_b, &head_b);
+				//ra(&var_a, &head_a);
+				break ;
+			}
+			else
+				i++;
+		}
+		reset(&var_a, &head_a, &var_b, &head_b);
+		while (var_a)
+		{
+			printf("%d--stack a--\n", var_a->number);
 			var_a = var_a->next;
 		}
-		printf("----\n");
 		while (var_b)
 		{
-			printf("%d\n", var_b->number);
+			printf("%d--stack b--\n", var_b->number);
 			var_b = var_b->next;
 		}
-		// reset(&var_a, &head_a, &var_b, &head_b);	
 	}
-	
+
 	return 0;
 }

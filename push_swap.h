@@ -30,9 +30,9 @@ typedef struct s_ps
 
 void	sa(t_ps **var, t_ps	**head);
 void	sb(t_ps **var, t_ps	**head);
-void	push(t_ps **var, t_ps **head, int i);
+void	push(t_ps **var, t_ps **head, t_ps **tail, int i);
 void	ft_lstadd_front(t_ps **lst, t_ps **head, t_ps *new);
-void	ss(t_ps **var_a, t_ps **var_b);
+void	ss(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps	**head_b);
 void	pb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
 void	pa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
 void	ra(t_ps **var_a, t_ps **head_a);
