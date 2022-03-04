@@ -47,8 +47,10 @@ void	sa(t_ps **var, t_ps	**head)
 	a2 = lst->number;
 	lst->number = a1;
 	lst = lst->previous;
+	//printf("%d---%p\n", lst->number, lst);
+	//printf("%d\n", a2);
 	lst->number = a2;
-	*var = *head;
+	//*var = *head;
 }
 
 void	ra(t_ps **var_a, t_ps **head_a)

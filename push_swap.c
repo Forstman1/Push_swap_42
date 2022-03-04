@@ -19,6 +19,7 @@
 
 void	ft_lstadd_front(t_ps **lst, t_ps **head, t_ps *new)
 {
+
 	if (!(*lst))
 	{
 		*lst = new;
@@ -28,8 +29,8 @@ void	ft_lstadd_front(t_ps **lst, t_ps **head, t_ps *new)
 	else
 	{
 		new->next = *lst;
-		*lst = new;
 		(*lst)->previous = new;
+		*lst = new;
 		*head = *lst;
 	}
 }
@@ -79,18 +80,15 @@ int main(int argc, char *argv[])
 			{
 				
 				reset(&var_a, &head_a, &var_b, &head_b);
-				// while (i >= 0)
-				// {
-				// 	//reset(&var_a, &head_a, &var_b, &head_b);
-				// 	pb(&var_a, &head_a, &var_b, &head_b);
-				//  	i--;
-				// }
-				reset(&var_a, &head_a, &var_b, &head_b);
-				//rra(&var_a, &head_a);
-				//reset(&var_a, &head_a, &var_b, &head_b);
+				while (i >= 0)
+				{
+					//reset(&var_a, &head_a, &var_b, &head_b);
+					pb(&var_a, &head_a, &var_b, &head_b);
+				 	i--;
+				}
+				rra(&var_a, &head_a);
 				sa(&var_a, &head_a);
-				//reset(&var_a, &head_a, &var_b, &head_b);
-				//ra(&var_a, &head_a);
+				ra(&var_a, &head_a);
 				break ;
 			}
 			else
