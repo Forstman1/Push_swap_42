@@ -25,6 +25,8 @@ typedef struct s_ps
 {
 	struct s_ps		*previous;
 	int				number;
+	int				index;
+	int				count;
 	struct s_ps		*next;
 }	t_ps;
 

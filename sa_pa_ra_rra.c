@@ -74,7 +74,6 @@ void	ra(t_ps **var_a, t_ps **head_a)
 		lst->number = b;
 		lst = lst->next;
 	}
-	lst = *head_a;
 }
 
 void	rra(t_ps **var_a, t_ps **head_a)

@@ -22,6 +22,7 @@ void	ft_lstadd_front(t_ps **lst, t_ps **head, t_ps *new)
 
 	if (!(*lst))
 	{
+
 		*lst = new;
 		*head = *lst;
 		(*lst)->previous = NULL;
@@ -41,6 +42,20 @@ void	reset(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 	*var_b = *head_b;
 }
 
+int	checkprevious(t_ps	*var_a, t_ps	*head_a, int j)
+{
+	var_a = head_a;
+	while (var_a)
+	{
+		if (var_a->number > j)
+		{
+			return (1);
+		}
+		else
+			var_a = var_a->next;
+	}
+	return 0;
+}
 
 
 int main(int argc, char *argv[])
@@ -52,52 +67,78 @@ int main(int argc, char *argv[])
 	t_ps	*tail_a;
 	t_ps	*tail_b;
 	int i;
-	int i_value;
-	int pivote;
 	int j;
-	int j_value;
+	int t;
+	int n;
 
 	i = 1;
-	i_value = 0;
-	j_value = 0;
-	j = 0;
-	pivote = 0;
+	t = 0;
 	if (argc > 2)
 	{
 		while (argv[i])
-		{
-			push(&var_a, &head_a, &tail_a, atoi(argv[i]));	
 			i++;
+		i--;	
+		while (i > 0)
+		{
+			push(&var_a, &head_a, &tail_a, atoi(argv[i]));
+			i--;
 		}
+		j = var_a->number;
+		while (var_a)
+		{
+			if (j > var_a->number)
+			{
+				j = var_a->number;
+				var_a->count = t + 1;
+				t++;
+				n = t;
+				var_a = var_a->next;
+			}
+			else
+			{
+				var_a->count = t + 1;
+				t++;
+				var_a = var_a->next;
+			}
+		}
+		reset(&var_a, &head_a, &var_b, &head_b);
+		if (n < (t / 2))
+		{
+			while ((n - 1) > 0)
+			{
+				ra(&var_a, &head_a);
+				n--;
+			}
+			
+		}
+		else
+		{
+			while (t >= n)
+			{
+				rra(&var_a, &head_a);
+				t--;
+			}
+		}
+		printf("ana hna\n");
+
 		i = 0;
 		j = 0;
-		pivote = var_a->number;
+
 		while (var_a)
 		{
 			var_a = var_a->next;
-			i_value = var_a->number;
-			if (i_value > pivote)
-			{
-				
-				reset(&var_a, &head_a, &var_b, &head_b);
-				while (i >= 0)
-				{
-					//reset(&var_a, &head_a, &var_b, &head_b);
-					pb(&var_a, &head_a, &var_b, &head_b);
-				 	i--;
-				}
-				rra(&var_a, &head_a);
-				sa(&var_a, &head_a);
-				ra(&var_a, &head_a);
-				break ;
-			}
-			else
-				i++;
+			j = var_a->number;
+			// if (checkprevious(var_a, head_a, j))
+			// {
+			// 	var_a->index += 1;
+			// }
+
 		}
+
 		reset(&var_a, &head_a, &var_b, &head_b);
 		while (var_a)
 		{
-			printf("%d--stack a--\n", var_a->number);
+			printf("%d--stack a--%d\n", var_a->number, var_a->count);
 			var_a = var_a->next;
 		}
 		while (var_b)
@@ -105,7 +146,8 @@ int main(int argc, char *argv[])
 			printf("%d--stack b--\n", var_b->number);
 			var_b = var_b->next;
 		}
+		printf("%d\n", j);
 	}
 
-	return 0;
+	return (0);
 }

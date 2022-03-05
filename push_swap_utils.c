@@ -14,7 +14,7 @@ void	push(t_ps **var, t_ps **head, t_ps **tail, int i)
 		*tail = tmp;
 	tmp->previous = NULL;
 	tmp->next = NULL;
-
+	tmp->index = 1;
 	//*head = tmp;
 	ft_lstadd_front(var, head, tmp);
 }
