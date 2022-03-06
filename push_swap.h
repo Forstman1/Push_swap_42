@@ -26,7 +26,9 @@ typedef struct s_ps
 	struct s_ps		*previous;
 	int				number;
 	int				index;
+	int				subsequence;
 	int				count;
+	int				lic;
 	struct s_ps		*next;
 }	t_ps;
 
@@ -42,5 +44,7 @@ void	rb(t_ps **var_b, t_ps **head_b);
 void	rr(t_ps	**var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b);
 void	rra(t_ps **var_a, t_ps **head_a);
 void	rrb(t_ps **var_b, t_ps **head_b);
+void	lis(t_ps **var_a, t_ps **head);
+int	checkprevious(t_ps	*var_a, t_ps	*head_a, int j_value, int j, int *t);
 
 #endif

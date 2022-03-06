@@ -42,21 +42,43 @@ void	reset(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 	*var_b = *head_b;
 }
 
-int	checkprevious(t_ps	*var_a, t_ps	*head_a, int j)
-{
-	var_a = head_a;
-	while (var_a)
-	{
-		if (var_a->number > j)
-		{
-			return (1);
-		}
-		else
-			var_a = var_a->next;
-	}
-	return 0;
-}
 
+void	pushingtostackb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
+{
+	int caase;
+	t_ps	*lst_a;
+	t_ps	*lst_b;
+	int i;
+
+	i = 0;
+	caase = 0;
+	lst_a = *var_a;
+	lst_b = *var_b;
+	while (lst_a->next)
+	{
+		if (i < lst_a->index)
+			i = lst_a->index;
+		lst_a = lst_a->next;
+	}
+	while (lst_a->previous)
+	{
+		if (i == lst_a->index)
+		{
+			lst_a->lic = 1;
+			while (lst_a->previous)
+			{
+				caase = lst_a->subsequence;
+				if (caase == lst_a->count)
+					lst_a->lic = 1;
+				else
+					lst_a->lic = 0;
+				lst_a = lst_a->previous;
+			}
+			break ;
+		}
+		lst_a = lst_a->previous;
+	}
+}
 
 int main(int argc, char *argv[])
 {
@@ -72,7 +94,7 @@ int main(int argc, char *argv[])
 	int n;
 
 	i = 1;
-	t = 0;
+	t = -1;
 	if (argc > 2)
 	{
 		while (argv[i])
@@ -108,8 +130,7 @@ int main(int argc, char *argv[])
 			{
 				ra(&var_a, &head_a);
 				n--;
-			}
-			
+			}	
 		}
 		else
 		{
@@ -119,26 +140,14 @@ int main(int argc, char *argv[])
 				t--;
 			}
 		}
-		printf("ana hna\n");
-
-		i = 0;
-		j = 0;
-
-		while (var_a)
-		{
-			var_a = var_a->next;
-			j = var_a->number;
-			// if (checkprevious(var_a, head_a, j))
-			// {
-			// 	var_a->index += 1;
-			// }
-
-		}
-
+		lis(&var_a, &head_a);
+		reset(&var_a, &head_a, &var_b, &head_b);
+		var_a->subsequence = -1;
+		pushingtostackb(&var_a, &head_a, &var_b, &head_b);
 		reset(&var_a, &head_a, &var_b, &head_b);
 		while (var_a)
 		{
-			printf("%d--stack a--%d\n", var_a->number, var_a->count);
+			printf("%d--stack a--index--%d--subsequence%d--lic%d\n", var_a->number, var_a->index, var_a->subsequence, var_a->lic);
 			var_a = var_a->next;
 		}
 		while (var_b)
