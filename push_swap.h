@@ -45,6 +45,8 @@ void	rr(t_ps	**var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b);
 void	rra(t_ps **var_a, t_ps **head_a);
 void	rrb(t_ps **var_b, t_ps **head_b);
 void	lis(t_ps **var_a, t_ps **head);
-int	checkprevious(t_ps	*var_a, t_ps	*head_a, int j_value, int j, int *t);
+int		checkprevious(t_ps *var_a, t_ps *head_a, int j_value, int j, int *t);
+void	pushingtostackb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
+void	reset(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
 
 #endif

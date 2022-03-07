@@ -42,44 +42,6 @@ void	reset(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 	*var_b = *head_b;
 }
 
-
-void	pushingtostackb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
-{
-	int caase;
-	t_ps	*lst_a;
-	t_ps	*lst_b;
-	int i;
-
-	i = 0;
-	caase = 0;
-	lst_a = *var_a;
-	lst_b = *var_b;
-	while (lst_a->next)
-	{
-		if (i < lst_a->index)
-			i = lst_a->index;
-		lst_a = lst_a->next;
-	}
-	while (lst_a->previous)
-	{
-		if (i == lst_a->index)
-		{
-			lst_a->lic = 1;
-			while (lst_a->previous)
-			{
-				caase = lst_a->subsequence;
-				if (caase == lst_a->count)
-					lst_a->lic = 1;
-				else
-					lst_a->lic = 0;
-				lst_a = lst_a->previous;
-			}
-			break ;
-		}
-		lst_a = lst_a->previous;
-	}
-}
-
 int main(int argc, char *argv[])
 {
 	t_ps	*var_a;
@@ -145,14 +107,20 @@ int main(int argc, char *argv[])
 		var_a->subsequence = -1;
 		pushingtostackb(&var_a, &head_a, &var_b, &head_b);
 		reset(&var_a, &head_a, &var_b, &head_b);
+		
+		
+		
+		
+		
+		
 		while (var_a)
 		{
-			printf("%d--stack a--index--%d--subsequence%d--lic%d\n", var_a->number, var_a->index, var_a->subsequence, var_a->lic);
+			printf("%d--stack a--%d\n", var_a->number, var_a->lic);
 			var_a = var_a->next;
 		}
 		while (var_b)
 		{
-			printf("%d--stack b--\n", var_b->number);
+			printf("%d--stack b--%d\n", var_b->number, var_b->lic);
 			var_b = var_b->next;
 		}
 		printf("%d\n", j);

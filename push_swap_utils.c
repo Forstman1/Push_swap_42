@@ -68,5 +68,89 @@ void	lis(t_ps **var_a, t_ps **head)
 			var->subsequence = t;
 		}
 	}
-	
+}
+
+void	pushingtostackb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
+{
+	int caase;
+	t_ps	*lst_a;
+	t_ps	*lst_b;
+	int i;
+	int j;
+	int t;
+
+	i = 0;
+	t = 0;
+	caase = 0;
+	lst_a = *var_a;
+	lst_b = *var_b;
+	while (lst_a->next)
+	{
+		if (i < lst_a->index)
+			i = lst_a->index;
+		lst_a = lst_a->next;
+	}
+	j = lst_a->count;
+	while (lst_a->previous)
+	{
+		if (i == lst_a->index)
+		{
+			lst_a->lic = 1;
+			caase = lst_a->subsequence;
+			while (lst_a)
+			{
+				if (caase == lst_a->count)
+				{
+					lst_a->lic = 1;
+					caase = lst_a->subsequence;
+				}
+				lst_a = lst_a->previous;
+			}
+			break ;
+		}
+		lst_a = lst_a->previous;
+	}
+	lst_a = *var_a;
+	i = 0;
+	while (lst_a)
+	{
+		if (i < (j / 2))
+		{
+			if (lst_a->lic == 0)
+			{
+				reset(&lst_a, head_a, var_b, head_b);
+				while (i > 0)
+				{
+					ra(&lst_a, head_a);
+					i--;
+				}
+				pb(&lst_a, head_a, var_b, head_b);			
+				reset(&lst_a, head_a, var_b, head_b);
+				i = 0;
+			}
+			else
+			{
+				lst_a = lst_a->next;
+				i++;
+			}
+		}
+		else
+			if (lst_a->lic == 0)
+			{
+				i = j;
+				reset(&lst_a, head_a, var_b, head_b);
+				while (i > (j / 2))
+				{
+					rra(&lst_a, head_a);
+					i--;
+				}
+				pb(&lst_a, head_a, var_b, head_b);
+				i = 0;
+			}
+			else
+			{
+				lst_a = lst_a->next;
+				i++;
+			}
+	}
 }

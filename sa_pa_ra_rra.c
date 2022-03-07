@@ -57,6 +57,8 @@ void	ra(t_ps **var_a, t_ps **head_a)
 {
 	t_ps	*lst;
 	int a;
+	int lic_a;
+	int lic_b;
 	int b;
 
 	lst = *var_a;
@@ -67,11 +69,15 @@ void	ra(t_ps **var_a, t_ps **head_a)
 	while (lst->next)
 	{
 		a = lst->number;
+		lic_a = lst->lic;
 		lst = lst->next;
 		b = lst->number;
+		lic_b = lst->lic;
+		lst->lic = lic_a;
 		lst->number = a;
 		lst = lst->previous;
 		lst->number = b;
+		lst->lic = lic_b;
 		lst = lst->next;
 	}
 }
@@ -80,25 +86,31 @@ void	rra(t_ps **var_a, t_ps **head_a)
 {
 	t_ps	*lst;
 	int a;
+	int lic_a;
 	int b;
+	int lic_b;
 
 	lst = *var_a;
 	a = 0;
 	b = 0;
+	lic_a = 0;
+	lic_b = 0;
 	if (!(*var_a))
 		return ;
 	while (lst->next)
-	{
 		lst = lst->next;
-	}
 	while (lst->previous)
 	{
 		a = lst->number;
+		lic_a = lst->lic;
 		lst = lst->previous;
 		b = lst->number;
+		lic_b = lst->lic;
+		lst->lic = lic_a;
 		lst->number = a;
 		lst = lst->next;
 		lst->number = b;
+		lst->lic = lic_b;
 		lst = lst->previous;
 	}
 	//lst = *head_a;
