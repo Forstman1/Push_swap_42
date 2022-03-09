@@ -29,6 +29,10 @@ typedef struct s_ps
 	int				subsequence;
 	int				count;
 	int				lic;
+	int				bestmoveb;
+	int				bestmovea;
+	int				bestmove[2];
+	int				score;
 	struct s_ps		*next;
 }	t_ps;
 
@@ -48,5 +52,10 @@ void	lis(t_ps **var_a, t_ps **head);
 int		checkprevious(t_ps *var_a, t_ps *head_a, int j_value, int j, int *t);
 void	pushingtostackb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
 void	reset(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
+void	bestmoveinb(t_ps **var_b, t_ps **head_b);
+int		checkmoves(t_ps *var ,t_ps **var_b, t_ps **head_b, int i);
+void	sortingcount(t_ps	**var_a, t_ps	**head_a, int j);
+void	bestmovea(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
+void	pushtoa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j);
 
 #endif

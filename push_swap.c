@@ -42,6 +42,21 @@ void	reset(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 	*var_b = *head_b;
 }
 
+void	resetindex(t_ps	**var)
+{
+	t_ps	*var_a;
+	int t;
+
+	t = -1;
+	var_a = *var;
+	while (var_a)
+	{
+		var_a->count = t + 1;
+		t++;
+		var_a = var_a->next;
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	t_ps	*var_a;
@@ -49,7 +64,6 @@ int main(int argc, char *argv[])
 	t_ps	*head_a;
 	t_ps	*head_b;
 	t_ps	*tail_a;
-	t_ps	*tail_b;
 	int i;
 	int j;
 	int t;
@@ -102,28 +116,45 @@ int main(int argc, char *argv[])
 				t--;
 			}
 		}
+		reset(&var_a, &head_a, &var_b, &head_b);
 		lis(&var_a, &head_a);
 		reset(&var_a, &head_a, &var_b, &head_b);
 		var_a->subsequence = -1;
+		reset(&var_a, &head_a, &var_b, &head_b);
 		pushingtostackb(&var_a, &head_a, &var_b, &head_b);
 		reset(&var_a, &head_a, &var_b, &head_b);
-		
-		
-		
-		
-		
-		
+		bestmoveinb(&var_b, &head_b);
+		reset(&var_a, &head_a, &var_b, &head_b);
 		while (var_a)
 		{
-			printf("%d--stack a--%d\n", var_a->number, var_a->lic);
+			sortingcount(&var_a, &head_a, j);
 			var_a = var_a->next;
 		}
+		reset(&var_a, &head_a, &var_b, &head_b);
+		resetindex(&var_a);
+		reset(&var_a, &head_a, &var_b, &head_b);
+		bestmovea(&var_a, &head_a, &var_b, &head_b);
+		reset(&var_a, &head_a, &var_b, &head_b);
+		pushtoa(&var_a, &head_a, &var_b, &head_b, j);
+		reset(&var_a, &head_a, &var_b, &head_b);
+		while (var_a)
+		{
+			sortingcount(&var_a, &head_a, j);
+			var_a = var_a->next;
+		}
+		reset(&var_a, &head_a, &var_b, &head_b);
+		while (var_a)
+		{
+			printf("%d--stack a--%d\n", var_a->number, var_a->count);
+			printf("'\n");
+			var_a = var_a->next;
+		}
+		printf("'\n");
 		while (var_b)
 		{
-			printf("%d--stack b--%d\n", var_b->number, var_b->lic);
+			printf("%d--stack b--%d--signe%d---signe%d\n", var_b->number, var_b->lic, var_b->bestmovea, var_b->bestmoveb);
 			var_b = var_b->next;
 		}
-		printf("%d\n", j);
 	}
 
 	return (0);

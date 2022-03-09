@@ -118,13 +118,14 @@ void	pushingtostackb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 		{
 			if (lst_a->lic == 0)
 			{
+				
 				reset(&lst_a, head_a, var_b, head_b);
 				while (i > 0)
 				{
 					ra(&lst_a, head_a);
 					i--;
 				}
-				pb(&lst_a, head_a, var_b, head_b);			
+				pb(&lst_a, head_a, var_b, head_b);
 				reset(&lst_a, head_a, var_b, head_b);
 				i = 0;
 			}
@@ -145,6 +146,7 @@ void	pushingtostackb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 					i--;
 				}
 				pb(&lst_a, head_a, var_b, head_b);
+				reset(&lst_a, head_a, var_b, head_b);
 				i = 0;
 			}
 			else
