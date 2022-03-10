@@ -77,7 +77,6 @@ void	sortingcount(t_ps	**var_a, t_ps	**head_a, int j)
 		lst = lst->next;
 	}
 	lst = *var_a;
-	
 	while (lst)
 	{
 		if (t <= (i / 2))
@@ -103,6 +102,7 @@ void	sortingcount(t_ps	**var_a, t_ps	**head_a, int j)
 			if (lst->number == j)
 			{
 				lst = *var_a;
+				lst->previous = NULL;
 				while (i > t)
 				{
 					rra(&lst, head_a);

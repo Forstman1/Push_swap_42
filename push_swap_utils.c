@@ -118,7 +118,6 @@ void	pushingtostackb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 		{
 			if (lst_a->lic == 0)
 			{
-				
 				reset(&lst_a, head_a, var_b, head_b);
 				while (i > 0)
 				{
@@ -139,6 +138,7 @@ void	pushingtostackb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 			if (lst_a->lic == 0)
 			{
 				i = j;
+				lst_a->previous = NULL;
 				reset(&lst_a, head_a, var_b, head_b);
 				while (i > (j / 2))
 				{

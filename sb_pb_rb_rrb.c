@@ -13,10 +13,10 @@ void	pb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 		return ;
 	*head_a = lst_a->next;
 
-	*var_a = *head_a;
 	lst_a->next = NULL;
 	lst_a->previous = NULL;
 	ft_lstadd_front(var_b, head_b, lst_a);
+	*var_a = *head_a;
 }
 
 void	sb(t_ps **var, t_ps	**head)

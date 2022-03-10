@@ -26,7 +26,6 @@ void	pushtoa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
 		lst_b = *head_b;
 		if (lst_b->bestmovea < 0)
 		{
-			//sleep(2);
 			lst_a = *head_a;
 			while (lst_b->bestmovea < 0)
 			{
@@ -45,22 +44,11 @@ void	pushtoa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
 			}
 			lst_a = *head_a;
 			bestmovea(&lst_a, head_a, &lst_b, head_b);
-			// lst_a = *head_a;
-			// while (lst_a)
-			// {
-			// 	printf("%d--stack a\n", lst_a->number);
-			// 	printf("'\n");
-			// 	lst_a = lst_a->next;
-			// }
-			// printf("%d--stack b\n", lst_b->number);
-			// printf("---t---\n");
 			lst_a = *head_a;
 		}
 		else
 		{
-			//sleep(2);
 			lst_a = *head_a;
-			//printf("%d--stack b\n", lst_b->number);
 			while (lst_b->bestmovea > 0)
 			{
 				ra(&lst_a, head_a);
@@ -68,7 +56,6 @@ void	pushtoa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
 			}
 			pa(&lst_a, head_a, &lst_b, head_b);
 			lst_a = *head_a;
-			//sa(&lst_a, head_a);
 			lst_b = *head_b;
 			while (lst_a)
 			{
@@ -77,14 +64,6 @@ void	pushtoa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
 			}
 			lst_a = *head_a;
 			bestmovea(&lst_a, head_a, &lst_b, head_b);
-			// lst_a = *head_a;
-			// while (lst_a)
-			// {
-			// 	printf("%d--stack a--\n", lst_a->number);
-			// 	printf("'\n");
-			// 	lst_a = lst_a->next;
-			// }
-			// printf("------\n");
 			lst_a = *head_a;
 		}
 	}

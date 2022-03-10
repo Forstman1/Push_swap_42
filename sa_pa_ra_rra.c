@@ -13,10 +13,10 @@ void	pa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 		return ;
 	*head_b = lst_b->next;
 
-	*var_b = *head_b;
 	lst_b->next = NULL;
 	lst_b->previous = NULL;
 	ft_lstadd_front(var_a, head_a, lst_b);
+	*var_b = *head_b;
 }
 
 
@@ -99,15 +99,11 @@ void	rra(t_ps **var_a, t_ps **head_a)
 		return ;
 	while (lst->next)
 		lst = lst->next;
-	
 	while (lst->previous)
 	{
-		//sleep(1);
 		a = lst->number;
 		lic_a = lst->lic;
-		//printf("%d\n", lst->number);
 		lst = lst->previous;
-		//printf("%d\n", lst->number);
 		b = lst->number;
 		lic_b = lst->lic;
 		lst->lic = lic_a;
@@ -117,5 +113,5 @@ void	rra(t_ps **var_a, t_ps **head_a)
 		lst->lic = lic_b;
 		lst = lst->previous;
 	}
-	*var_a = *head_a;
+	//*var_a = *head_a;
 }
