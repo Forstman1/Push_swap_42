@@ -15,7 +15,6 @@ void	push(t_ps **var, t_ps **head, t_ps **tail, int i)
 	tmp->previous = NULL;
 	tmp->next = NULL;
 	tmp->index = 1;
-	//*head = tmp;
 	ft_lstadd_front(var, head, tmp);
 }
 
@@ -138,8 +137,8 @@ void	pushingtostackb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 			if (lst_a->lic == 0)
 			{
 				i = j;
-				lst_a->previous = NULL;
 				reset(&lst_a, head_a, var_b, head_b);
+				lst_a->previous = NULL;
 				while (i > (j / 2))
 				{
 					rra(&lst_a, head_a);

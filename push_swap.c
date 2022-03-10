@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
 		reset(&var_a, &head_a, &var_b, &head_b);
 		if (n < (t / 2))
 		{
-			while ((n - 1) > 0)
+			while ((n - 1) >= 0)
 			{
 				ra(&var_a, &head_a);
 				n--;
@@ -117,10 +117,15 @@ int main(int argc, char *argv[])
 			}
 		}
 		reset(&var_a, &head_a, &var_b, &head_b);
+		while (var_a)
+		{
+			var_a->lic = 0;
+			var_a = var_a->next;
+		}
+		reset(&var_a, &head_a, &var_b, &head_b);
 		lis(&var_a, &head_a);
 		reset(&var_a, &head_a, &var_b, &head_b);
 		var_a->subsequence = 0;
-		reset(&var_a, &head_a, &var_b, &head_b);
 		pushingtostackb(&var_a, &head_a, &var_b, &head_b);
 		reset(&var_a, &head_a, &var_b, &head_b);
 		bestmoveinb(&var_b, &head_b);
@@ -137,11 +142,11 @@ int main(int argc, char *argv[])
 		reset(&var_a, &head_a, &var_b, &head_b);
 		pushtoa(&var_a, &head_a, &var_b, &head_b, j);
 		reset(&var_a, &head_a, &var_b, &head_b);
-		// while (var_a)
-		// {
-		// 	sortingcount(&var_a, &head_a, j);
-		// 	var_a = var_a->next;
-		// }
+		while (var_a)
+		{
+			sortingcount(&var_a, &head_a, j);
+			var_a = var_a->next;
+		}
 		reset(&var_a, &head_a, &var_b, &head_b);
 		while (var_a)
 		{
