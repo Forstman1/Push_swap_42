@@ -169,7 +169,12 @@ void	bestmovea(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 					if (i < (lenght / 2))
 						lst_b->bestmovea = i;
 					else
-						lst_b->bestmovea = (lenght - i + 1) * -1;
+					{
+						//if (lenght % 2 == 0)
+							lst_b->bestmovea = (lenght - i + 1) * -1;
+						//else
+							//lst_b->bestmovea = (lenght - i) * -1;
+					}
 					break ;
 				}
 			}

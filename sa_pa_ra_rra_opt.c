@@ -4,7 +4,7 @@
 
 
 
-void	pa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
+void	pa_opt(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 {
 	t_ps *lst_b;
 
@@ -21,7 +21,7 @@ void	pa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 }
 
 
-void	sa(t_ps **var, t_ps	**head)
+void	sa_opt(t_ps **var, t_ps	**head)
 {
 	t_ps *lst;
 	int a1;
@@ -54,7 +54,7 @@ void	sa(t_ps **var, t_ps	**head)
 	//printf("sa\n");
 }
 
-void	ra(t_ps **var_a, t_ps **head_a)
+void	ra_opt(t_ps **var_a, t_ps **head_a)
 {
 	t_ps	*lst;
 	int a;
@@ -85,7 +85,7 @@ void	ra(t_ps **var_a, t_ps **head_a)
 	*var_a = *head_a;
 }
 
-void	rra(t_ps **var_a, t_ps **head_a)
+void	rra_opt(t_ps **var_a, t_ps **head_a)
 {
 	t_ps	*lst;
 	int a;

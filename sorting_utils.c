@@ -27,6 +27,7 @@ void	pushtoa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
 		if (lst_b->bestmovea < 0)
 		{
 			lst_a = *head_a;
+			lst_a->previous = NULL;
 			while (lst_b->bestmovea < 0)
 			{
 				rra(&lst_a, head_a);

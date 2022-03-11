@@ -4,7 +4,7 @@
 #include "push_swap.h"
 
 
-void	pb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
+void	pb_opt(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 {
 	t_ps *lst_a;
 
@@ -20,7 +20,7 @@ void	pb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 	//printf("pb\n");
 }
 
-void	sb(t_ps **var, t_ps	**head)
+void	sb_opt(t_ps **var, t_ps	**head)
 {
 	t_ps *lst;
 	int a1;
@@ -54,7 +54,7 @@ void	sb(t_ps **var, t_ps	**head)
 	//printf("sb\n");
 }
 
-void	rb(t_ps **var_b, t_ps **head_b)
+void	rb_opt(t_ps **var_b, t_ps **head_b)
 {
 	t_ps	*lst;
 	int a;
@@ -77,7 +77,7 @@ void	rb(t_ps **var_b, t_ps **head_b)
 	//printf("rb\n");
 }
 
-void	rrb(t_ps **var_b, t_ps **head_b)
+void	rrb_opt(t_ps **var_b, t_ps **head_b)
 {
 	t_ps	*lst;
 	int a;

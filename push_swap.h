@@ -31,7 +31,6 @@ typedef struct s_ps
 	int				lic;
 	int				bestmoveb;
 	int				bestmovea;
-	int				bestmove[2];
 	int				score;
 	struct s_ps		*next;
 }	t_ps;
@@ -57,5 +56,24 @@ int		checkmoves(t_ps *var ,t_ps **var_b, t_ps **head_b, int i);
 void	sortingcount(t_ps	**var_a, t_ps	**head_a, int j);
 void	bestmovea(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
 void	pushtoa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j);
+void	stack_sorting(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j);
+int	pushtoaoptimazed(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j);
+void	bestscore(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
+void	rrr(t_ps	**var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b);
+void	pa_opt(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
+void	sa_opt(t_ps **var, t_ps	**head);
+void	ra_opt(t_ps **var_a, t_ps **head_a);
+void	rra_opt(t_ps **var_a, t_ps **head_a);
+void	pb_opt(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
+void	sb_opt(t_ps **var, t_ps	**head);
+void	rb_opt(t_ps **var_b, t_ps **head_b);
+void	rrb_opt(t_ps **var_b, t_ps **head_b);
+
+
+
+
+
+
+
 
 #endif
