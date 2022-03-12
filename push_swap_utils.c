@@ -35,7 +35,7 @@ void	lis(t_ps **var_a, t_ps **head)
 		j_value = var->number;
 		j = var->index;
 		var->index = checkprevious(*var_a, *head, j_value, j, &t);
-		if (var->index > j)
+		if (var->index >= j)
 			var->subsequence = t;
 	}
 }

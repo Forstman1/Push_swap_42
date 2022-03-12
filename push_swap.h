@@ -55,7 +55,7 @@ void	sortingcount(t_ps	**var_a, t_ps	**head_a, int j);
 void	bestmovea(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j);
 void	pushtoa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j);
 void	stack_sorting(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j);
-int		pushtoaoptimazed(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j);
+void	pushtoaoptimazed(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j);
 void	bestscore(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
 void	rrr(t_ps	**var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b);
 void	pa_opt(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);

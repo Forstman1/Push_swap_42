@@ -25,7 +25,7 @@ void	bestscore(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 
 	while (lst_b)
 	{
-		if (lst_b->bestmovea >= 0)
+		if (lst_b->bestmovea > 0)
 		{
 			if (lst_b->bestmoveb > 0)
 			{
@@ -79,7 +79,7 @@ void	bestscore(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 	}
 }
 
-int	pushtoaoptimazed(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
+void	pushtoaoptimazed(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
 {
 	t_ps	*lst_a;
 	t_ps	*lst_b;
@@ -117,20 +117,18 @@ int	pushtoaoptimazed(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, i
 	(*var_a)->previous = NULL;
 	if (lst_b->bestmovea < 0 && lst_b->bestmoveb < 0)
 	{
-		while (lst_b->bestmovea < 0 && lst_b->bestmoveb < 0)
+		while (lst_b->bestmovea < -1 && lst_b->bestmoveb < 0)
 		{
 			rrr(var_a, head_a, var_b, head_b);
-			t = 1;
 			lst_b->bestmovea++;
 			lst_b->bestmoveb++;
 		}
 	}
 	reset(var_a, head_a, var_b, head_b);
-	while (lst_b->bestmovea < 0)
+	while (lst_b->bestmovea < -1)
 	{
 		rra(var_a, head_a);
 		lst_b->bestmovea += 1;
-		t = 1;
 	}
 	reset(var_a, head_a, var_b, head_b);
 	while (lst_b->bestmovea > 0)
@@ -150,18 +148,15 @@ int	pushtoaoptimazed(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, i
 		rb(var_b, head_b);
 		lst_b->bestmoveb -= 1;
 	}
-	return (t);
 }
 
 void	stack_sorting(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
 {
 	t_ps	*lst_a;
 	t_ps	*lst_b;
-	int i;
 
 	lst_a = *var_a;
 	lst_b = *var_b;
-	i = 0;
 	while (lst_b)
 	{
 		bestmovea(&lst_a, head_a, &lst_b, head_b, j);
@@ -169,11 +164,9 @@ void	stack_sorting(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int
 		bestscore(&lst_a, head_a, &lst_b, head_b);
 		lst_b = *head_b;
 		lst_a = *var_a;
-		i = pushtoaoptimazed(var_a, head_a , &lst_b, head_b, j);
+		pushtoaoptimazed(var_a, head_a , &lst_b, head_b, j);
 		reset(var_a, head_a, var_b, head_b);
 		pa(&lst_a, head_a, &lst_b, head_b);
-		if (i == 1)
-			sa(&lst_a, head_a);
 		*var_a = *head_a;
 		lst_a = *var_a;
 		lst_b = *head_b;

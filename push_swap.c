@@ -114,26 +114,26 @@ int main(int argc, char *argv[])
 		}
 		reset(&var_a, &head_a, &var_b, &head_b);
 		lis(&var_a, &head_a);
+		reset(&var_a, &head_a, &var_b, &head_b);
 		var_a->subsequence = -1;
 		pushingtostackb(&var_a, &head_a, &var_b, &head_b);
-		reset(&var_a, &head_a, &var_b, &head_b);
-		while (var_a)
-		{
-			printf("%d--stack a--%d\n", var_a->number, var_a->lic);
-			//printf("'\n");
-			var_a = var_a->next;
-		}
-		printf("'\n");
-		while (var_b)
-		{
-			printf("%d--stack b--%d\n", var_b->number, var_b->lic);
-			var_b = var_b->next;
-		}
 		reset(&var_a, &head_a, &var_b, &head_b);
 		stack_sorting(&var_a, &head_a, &var_b, &head_b, j);
 		reset(&var_a, &head_a, &var_b, &head_b);
 		reset_to_smallist_number(&var_a, &head_a, j);
-		
+		reset(&var_a, &head_a, &var_b, &head_b);
+		// while (var_a)
+		// {
+		// 	printf("%d--stack a--%d\n", var_a->number, var_a->lic);
+		// 	//printf("'\n");
+		// 	var_a = var_a->next;
+		// }
+		// printf("'\n");
+		// while (var_b)
+		// {
+		// 	printf("%d--stack b--%d\n", var_b->number, var_b->lic);
+		// 	var_b = var_b->next;
+		// }
 	}
 	return (0);
 }
