@@ -44,7 +44,7 @@ void	pushtoa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
 				lst_a = lst_a->next;
 			}
 			lst_a = *head_a;
-			bestmovea(&lst_a, head_a, &lst_b, head_b);
+			bestmovea(&lst_a, head_a, &lst_b, head_b, j);
 			lst_a = *head_a;
 		}
 		else
@@ -64,7 +64,7 @@ void	pushtoa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
 				lst_a = lst_a->next;
 			}
 			lst_a = *head_a;
-			bestmovea(&lst_a, head_a, &lst_b, head_b);
+			bestmovea(&lst_a, head_a, &lst_b, head_b, j);
 			lst_a = *head_a;
 		}
 	}

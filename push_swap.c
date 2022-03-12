@@ -42,20 +42,20 @@ void	reset(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 	*var_b = *head_b;
 }
 
-// void	resetindex(t_ps	**var)
-// {
-// 	t_ps	*var_a;
-// 	int t;
+void	resetindex(t_ps	**var)
+{
+	t_ps	*var_a;
+	int t;
 
-// 	t = -1;
-// 	var_a = *var;
-// 	while (var_a)
-// 	{
-// 		var_a->count = t + 1;
-// 		t++;
-// 		var_a = var_a->next;
-// 	}
-// }
+	t = -1;
+	var_a = *var;
+	while (var_a)
+	{
+		var_a->count = t + 1;
+		t++;
+		var_a = var_a->next;
+	}
+}
 
 void	reset_to_smallist_number(t_ps	**var_a, t_ps	**head_a, int j)
 {
@@ -99,20 +99,14 @@ int main(int argc, char *argv[])
 			if (j > var_a->number)
 			{
 				j = var_a->number;
-				var_a->count = t + 1;
-				t++;
 				var_a = var_a->next;
 			}
 			else
-			{
-				var_a->count = t + 1;
-				t++;
 				var_a = var_a->next;
-			}
 		}
 		reset(&var_a, &head_a, &var_b, &head_b);
+		resetindex(&var_a);
 		reset_to_smallist_number(&var_a, &head_a, j);
-		reset(&var_a, &head_a, &var_b, &head_b);
 		while (var_a)
 		{
 			var_a->lic = 0;
@@ -120,44 +114,26 @@ int main(int argc, char *argv[])
 		}
 		reset(&var_a, &head_a, &var_b, &head_b);
 		lis(&var_a, &head_a);
-		reset(&var_a, &head_a, &var_b, &head_b);
 		var_a->subsequence = -1;
 		pushingtostackb(&var_a, &head_a, &var_b, &head_b);
 		reset(&var_a, &head_a, &var_b, &head_b);
 		while (var_a)
 		{
-			printf("%d--stack a--%d---%d\n", var_a->number, var_a->subsequence, var_a->count);
+			printf("%d--stack a--%d\n", var_a->number, var_a->lic);
 			//printf("'\n");
 			var_a = var_a->next;
 		}
+		printf("'\n");
 		while (var_b)
 		{
-			printf("%d--stack b--%d\n", var_b->number, var_b->subsequence);
-			//printf("'\n");
+			printf("%d--stack b--%d\n", var_b->number, var_b->lic);
 			var_b = var_b->next;
 		}
 		reset(&var_a, &head_a, &var_b, &head_b);
-		bestmoveinb(&var_b, &head_b);
-		reset(&var_a, &head_a, &var_b, &head_b);
-		reset_to_smallist_number(&var_a, &head_a, j);
-		bestmovea(&var_a, &head_a, &var_b, &head_b);
-		reset(&var_a, &head_a, &var_b, &head_b);
-		bestscore(&var_a, &head_a, &var_b, &head_b);
-		reset(&var_a, &head_a, &var_b, &head_b);
 		stack_sorting(&var_a, &head_a, &var_b, &head_b, j);
 		reset(&var_a, &head_a, &var_b, &head_b);
-		// while (var_a)
-		// {
-		// 	printf("%d--stack a--%d\n", var_a->number, var_a->lic);
-		// 	//printf("'\n");
-		// 	var_a = var_a->next;
-		// }
-		// printf("'\n");
-		// while (var_b)
-		// {
-		// 	printf("%d--stack b--%d\n", var_b->number, var_b->lic);
-		// 	var_b = var_b->next;
-		// }
+		reset_to_smallist_number(&var_a, &head_a, j);
+		
 	}
 	return (0);
 }

@@ -17,7 +17,7 @@ void	pb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 	lst_a->previous = NULL;
 	ft_lstadd_front(var_b, head_b, lst_a);
 	*var_a = *head_a;
-	//printf("pb\n");
+	printf("pb\n");
 }
 
 void	sb(t_ps **var, t_ps	**head)
@@ -51,7 +51,7 @@ void	sb(t_ps **var, t_ps	**head)
 	lst = lst->previous;
 	lst->number = a2;
 	*var = *head;
-	//printf("sb\n");
+	printf("sb\n");
 }
 
 void	rb(t_ps **var_b, t_ps **head_b)
@@ -74,7 +74,7 @@ void	rb(t_ps **var_b, t_ps **head_b)
 		lst = lst->next;
 	}
 	lst = *head_b;
-	//printf("rb\n");
+	printf("rb\n");
 }
 
 void	rrb(t_ps **var_b, t_ps **head_b)
@@ -101,5 +101,5 @@ void	rrb(t_ps **var_b, t_ps **head_b)
 		lst = lst->previous;
 	}
 	lst = *head_b;
-	//printf("rrb\n");
+	printf("rrb\n");
 }

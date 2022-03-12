@@ -15,7 +15,7 @@ void	rr(t_ps	**var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
 	rb_opt(var_b, head_b);
 	*var_a = *head_a;
 	*var_b = *head_b;
-	//printf("rr\n");
+	printf("rr\n");
 }
 
 void	rrr(t_ps	**var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
@@ -24,5 +24,5 @@ void	rrr(t_ps	**var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
 	rrb_opt(var_b, head_b);
 	*var_a = *head_a;
 	*var_b = *head_b;
-	//printf("rrr\n");
+	printf("rrr\n");
 }

@@ -17,7 +17,7 @@ void	pa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 	lst_b->previous = NULL;
 	ft_lstadd_front(var_a, head_a, lst_b);
 	*var_b = *head_b;
-	//printf("pa\n");
+	printf("pa\n");
 }
 
 
@@ -51,7 +51,7 @@ void	sa(t_ps **var, t_ps	**head)
 	lst->number = a1;
 	lst = lst->previous;
 	lst->number = a2;
-	//printf("sa\n");
+	printf("sa\n");
 }
 
 void	ra(t_ps **var_a, t_ps **head_a)
@@ -81,7 +81,7 @@ void	ra(t_ps **var_a, t_ps **head_a)
 		lst->lic = lic_b;
 		lst = lst->next;
 	}
-	//printf("ra\n");
+	printf("ra\n");
 	*var_a = *head_a;
 }
 
@@ -116,6 +116,6 @@ void	rra(t_ps **var_a, t_ps **head_a)
 		lst->lic = lic_b;
 		lst = lst->previous;
 	}
-	//printf("rra\n");
+	printf("rra\n");
 	//*var_a = *head_a;
 }
