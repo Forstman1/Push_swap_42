@@ -35,7 +35,7 @@ typedef struct s_ps
 
 void	sa(t_ps **var, t_ps	**head);
 void	sb(t_ps **var, t_ps	**head);
-void	push(t_ps **var, t_ps **head, t_ps **tail, int i);
+void	push(t_ps **var, t_ps **head, int i);
 void	ft_lstadd_front(t_ps **lst, t_ps **head, t_ps *new);
 void	ss(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps	**head_b);
 void	pb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
@@ -67,6 +67,9 @@ void	sb_opt(t_ps **var, t_ps	**head);
 void	rb_opt(t_ps **var_b, t_ps **head_b);
 void	rrb_opt(t_ps **var_b, t_ps **head_b);
 void	bestscore_for_a(t_ps **var_a, t_ps **head_a);
+void	lis_test(t_ps	**var_a, t_ps	**head_a, t_ps	**head_fake, t_ps **tails, t_ps **tmp1, t_ps **tmp2);
+void	pushingtostackb_v1(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
+int		checkprevious_test(t_ps	*var_a, t_ps	*head_a, t_ps	*head_fake, int j_value, int j, int *t);
 
 
 

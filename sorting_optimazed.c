@@ -25,9 +25,9 @@ void	bestscore(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 
 	while (lst_b)
 	{
-		if (lst_b->bestmovea > 0)
+		if (lst_b->bestmovea >= 0)
 		{
-			if (lst_b->bestmoveb > 0)
+			if (lst_b->bestmoveb >= 0)
 			{
 				if (lst_b->bestmovea == lst_b->bestmoveb)
 					lst_b->score = lst_b->bestmovea;
@@ -59,18 +59,18 @@ void	bestscore(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 			else
 			{
 				if (lst_b->bestmovea == lst_b->bestmoveb)
-					lst_b->score = lst_b->bestmovea;
+					lst_b->score = lst_b->bestmovea * -1;
 				else
 				{
 					if (lst_b->bestmovea > lst_b->bestmoveb)
 					{
-						tmp = (lst_b->bestmovea * -1) - (lst_b->bestmoveb * -1);
-						lst_b->score = tmp + (lst_b->bestmoveb * -1);
+						tmp = (lst_b->bestmoveb * -1) - (lst_b->bestmovea * -1);
+						lst_b->score = tmp + (lst_b->bestmovea * -1);
 					}
 					else
 					{
-						tmp = (lst_b->bestmoveb * -1) - (lst_b->bestmovea * -1);
-						lst_b->score = tmp + (lst_b->bestmovea * -1);
+						tmp = (lst_b->bestmovea * -1) - (lst_b->bestmoveb * -1);
+						lst_b->score = tmp + (lst_b->bestmoveb * -1);
 					}
 				}
 			}
@@ -115,14 +115,11 @@ void	pushtoaoptimazed(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, 
 	reset(var_a, head_a, var_b, head_b);
 	(*var_b)->previous = NULL;
 	(*var_a)->previous = NULL;
-	if (lst_b->bestmovea < 0 && lst_b->bestmoveb < 0)
+	while (lst_b->bestmovea < -1 && lst_b->bestmoveb < 0)
 	{
-		while (lst_b->bestmovea < -1 && lst_b->bestmoveb < 0)
-		{
-			rrr(var_a, head_a, var_b, head_b);
-			lst_b->bestmovea++;
-			lst_b->bestmoveb++;
-		}
+		rrr(var_a, head_a, var_b, head_b);
+		lst_b->bestmovea++;
+		lst_b->bestmoveb++;
 	}
 	reset(var_a, head_a, var_b, head_b);
 	while (lst_b->bestmovea < -1)
@@ -136,6 +133,7 @@ void	pushtoaoptimazed(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, 
 		ra(var_a, head_a);
 		lst_b->bestmovea -= 1;
 	}
+	reset(var_a, head_a, var_b, head_b);
 	(*var_b)->previous = NULL;
 	while (lst_b->bestmoveb < 0)
 	{
@@ -143,10 +141,15 @@ void	pushtoaoptimazed(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, 
 		lst_b->bestmoveb += 1;
 	}
 	reset(var_a, head_a, var_b, head_b);
-	while (lst_b->bestmoveb > 0)
+	while (lst_b->bestmoveb > 1)
 	{
 		rb(var_b, head_b);
 		lst_b->bestmoveb -= 1;
+	}
+	if (lst_b->bestmoveb == 1)
+	{
+		sb(var_b, head_b);
+		lst_b->bestmovea -= 1;
 	}
 }
 
@@ -164,8 +167,24 @@ void	stack_sorting(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int
 		bestscore(&lst_a, head_a, &lst_b, head_b);
 		lst_b = *head_b;
 		lst_a = *var_a;
+		// sleep(1);
+		// while (lst_a)
+		// {
+		// 	printf("%d--stack a--%d\n", lst_a->number, lst_a->count);
+		// 	//printf("'\n");
+		// 	lst_a = lst_a->next;
+		// }
+		// printf("'\n");
+		// while (lst_b)
+		// {
+		// 	printf("%d--stack b--|%d---|%d---|%d\n", lst_b->number, lst_b->bestmovea, lst_b->bestmoveb, lst_b->score);
+		// 	lst_b = lst_b->next;
+		// }
+		// printf("---------\n");
+		lst_b = *head_b;
+		lst_a = *var_a;
 		pushtoaoptimazed(var_a, head_a , &lst_b, head_b, j);
-		reset(var_a, head_a, var_b, head_b);
+		//reset(var_a, head_a, var_b, head_b);
 		pa(&lst_a, head_a, &lst_b, head_b);
 		*var_a = *head_a;
 		lst_a = *var_a;

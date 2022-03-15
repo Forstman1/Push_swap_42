@@ -24,12 +24,16 @@ void	pa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 void	sa(t_ps **var, t_ps	**head)
 {
 	t_ps *lst;
-	int a1;
-	int a2;
+	int a;
+	int lic_a;
+	int b;
+	int lic_b;
 	int count;
 
-	a1 = 0;
-	a2 = 0;
+	a = 0;
+	lic_a = 0;
+	b = 0;
+	lic_b = 0;
 	count = 0;
 	lst = *var;
 	if (!(*var))
@@ -45,12 +49,17 @@ void	sa(t_ps **var, t_ps	**head)
 		return ;
 	}
 	lst = *head;
-	a1 = lst->number;
+	a = lst->number;
+	lic_a = lst->lic;
 	lst = lst->next;
-	a2 = lst->number;
-	lst->number = a1;
+	b = lst->number;
+	lic_b = lst->lic;
+	lst->number = a;
+	lst->lic = lic_a;
 	lst = lst->previous;
-	lst->number = a2;
+	lst->number = b;
+	lst->lic = lic_b;
+	//*var = *head;
 	printf("sa\n");
 }
 

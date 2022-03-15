@@ -69,20 +69,77 @@ void	reset_to_smallist_number(t_ps	**var_a, t_ps	**head_a, int j)
 	}
 }
 
+
+void	reset_to_smallist_number_test(t_ps	**var_a, t_ps	**head_a, t_ps	**head_fake, t_ps **tails, t_ps **tmp1, t_ps **tmp2, int j)
+{
+	t_ps	*lst;
+
+	lst = *var_a;
+	while (lst)
+	{
+		if (lst->number == j)
+		{
+			*head_fake = lst;
+			lst = lst->previous;
+			if (!lst)
+			{
+				lst = *var_a;
+				while (lst->next)
+					lst = lst->next;
+				*tmp1 = lst;
+				*tmp2 = *head_fake;
+				*var_a = *head_a;
+				return ;
+			}
+			*tails = lst;
+			while (lst->previous)
+				lst = lst->previous;
+			*tmp2 = lst;
+			lst = *head_a;
+			while (lst->next)
+				lst = lst->next;
+			*tmp1 = lst;
+			return ;
+		}
+		lst = lst->next;
+	}
+}
+
+int	smallistnumber(t_ps	**var_a)
+{
+	t_ps	*lst;
+	int j;
+
+	j = 0;
+	lst = *var_a;
+	j = lst->number;
+	while (lst)
+	{
+		if (j > lst->number)
+		{
+			j = lst->number;
+			lst = lst->next;
+		}
+		else
+			lst = lst->next;
+	}
+	return (j);
+}
+
 int main(int argc, char *argv[])
 {
 	t_ps	*var_a;
 	t_ps	*var_b;
 	t_ps	*head_a;
 	t_ps	*head_b;
-	t_ps	*tail_a;
+	t_ps	*head_fake;
+	t_ps	*tails;
+	t_ps	*tmp1;
+	t_ps	*tmp2;
 	int i;
 	int j;
-	int t;
-	int n;
 
 	i = 1;
-	t = -1;
 	if (argc > 2)
 	{
 		while (argv[i])
@@ -90,23 +147,14 @@ int main(int argc, char *argv[])
 		i--;	
 		while (i > 0)
 		{
-			push(&var_a, &head_a, &tail_a, atoi(argv[i]));
+			push(&var_a, &head_a, atoi(argv[i]));
 			i--;
 		}
-		j = var_a->number;
-		while (var_a)
-		{
-			if (j > var_a->number)
-			{
-				j = var_a->number;
-				var_a = var_a->next;
-			}
-			else
-				var_a = var_a->next;
-		}
+		j = smallistnumber(&var_a);
 		reset(&var_a, &head_a, &var_b, &head_b);
 		resetindex(&var_a);
 		reset_to_smallist_number(&var_a, &head_a, j);
+		reset(&var_a, &head_a, &var_b, &head_b);
 		while (var_a)
 		{
 			var_a->lic = 0;
@@ -115,25 +163,25 @@ int main(int argc, char *argv[])
 		reset(&var_a, &head_a, &var_b, &head_b);
 		lis(&var_a, &head_a);
 		reset(&var_a, &head_a, &var_b, &head_b);
-		var_a->subsequence = -1;
+		var_a->subsequence = 0;
 		pushingtostackb(&var_a, &head_a, &var_b, &head_b);
 		reset(&var_a, &head_a, &var_b, &head_b);
 		stack_sorting(&var_a, &head_a, &var_b, &head_b, j);
 		reset(&var_a, &head_a, &var_b, &head_b);
 		reset_to_smallist_number(&var_a, &head_a, j);
 		reset(&var_a, &head_a, &var_b, &head_b);
-		// while (var_a)
-		// {
-		// 	printf("%d--stack a--%d\n", var_a->number, var_a->lic);
-		// 	//printf("'\n");
-		// 	var_a = var_a->next;
-		// }
-		// printf("'\n");
-		// while (var_b)
-		// {
-		// 	printf("%d--stack b--%d\n", var_b->number, var_b->lic);
-		// 	var_b = var_b->next;
-		// }
+			// while (var_a)
+			// {
+			// 	printf("%d--stack a--%d\n", var_a->number, var_a->lic);
+			// 	//printf("'\n");
+			// 	var_a = var_a->next;
+			// }
+			// printf("'\n");
+			// while (var_b)
+			// {
+			// 	printf("%d--stack b--%d\n", var_b->number, var_b->lic);
+			// 	var_b = var_b->next;
+			// }
 	}
 	return (0);
 }

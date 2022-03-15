@@ -17,7 +17,6 @@ void	pb_opt(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 	lst_a->previous = NULL;
 	ft_lstadd_front(var_b, head_b, lst_a);
 	*var_a = *head_a;
-	//printf("pb\n");
 }
 
 void	sb_opt(t_ps **var, t_ps	**head)
@@ -51,7 +50,6 @@ void	sb_opt(t_ps **var, t_ps	**head)
 	lst = lst->previous;
 	lst->number = a2;
 	*var = *head;
-	//printf("sb\n");
 }
 
 void	rb_opt(t_ps **var_b, t_ps **head_b)
@@ -74,7 +72,6 @@ void	rb_opt(t_ps **var_b, t_ps **head_b)
 		lst = lst->next;
 	}
 	lst = *head_b;
-	//printf("rb\n");
 }
 
 void	rrb_opt(t_ps **var_b, t_ps **head_b)
@@ -101,5 +98,4 @@ void	rrb_opt(t_ps **var_b, t_ps **head_b)
 		lst = lst->previous;
 	}
 	lst = *head_b;
-	//printf("rrb\n");
 }

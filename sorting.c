@@ -183,7 +183,7 @@ void	bestmovea(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
 				}
 				if (lst_a->number > i_value)
 				{
-					if (i < (lenght / 2))
+					if (i <= (lenght / 2))
 						lst_b->bestmovea = i;
 					else
 						lst_b->bestmovea = (lenght - i + 1) * -1;
