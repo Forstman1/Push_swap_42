@@ -15,7 +15,7 @@ void	pb_opt(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 
 	lst_a->next = NULL;
 	lst_a->previous = NULL;
-	ft_lstadd_front(var_b, head_b, lst_a);
+	ft_lstadd(var_b, head_b, lst_a);
 	*var_a = *head_a;
 }
 
@@ -36,7 +36,7 @@ void	sb_opt(t_ps **var, t_ps	**head)
 	{
 		lst = lst->next;
 		count++;
-	}
+	} 
 	if (count == 1)
 	{
 		*var = *head;

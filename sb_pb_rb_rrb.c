@@ -15,7 +15,7 @@ void	pb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 
 	lst_a->next = NULL;
 	lst_a->previous = NULL;
-	ft_lstadd_front(var_b, head_b, lst_a);
+	ft_lstadd(var_b, head_b, lst_a);
 	*var_a = *head_a;
 	printf("pb\n");
 }

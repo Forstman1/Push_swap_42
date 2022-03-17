@@ -10,40 +10,71 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "push_swap.h"
 
-void	bestscore(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
+static void	postivecase(t_ps	**var_b)
 {
-	t_ps	*lst_a;
-	t_ps	*lst_b;
 	int		tmp;
+	t_ps	*lst_b;
 
-	lst_a = *var_a;
 	lst_b = *var_b;
-	tmp = 0;
+	if (lst_b->bestmovea == lst_b->bestmoveb)
+		lst_b->score = lst_b->bestmovea;
+	else
+	{
+		if (lst_b->bestmovea > lst_b->bestmoveb)
+		{
+			tmp = lst_b->bestmovea - lst_b->bestmoveb;
+			lst_b->score = tmp + lst_b->bestmoveb;
+		}
+		else
+		{
+			tmp = lst_b->bestmoveb - lst_b->bestmovea;
+			lst_b->score = tmp + lst_b->bestmovea;
+		}
+	}
+}
 
+static void	negativecase(t_ps	**var_b)
+{
+	int		tmp;
+	t_ps	*lst_b;
+
+	lst_b = *var_b;
+	if (lst_b->bestmoveb >= 0)
+		lst_b->score = (lst_b->bestmovea * -1) + lst_b->bestmoveb;
+	else
+	{
+		if (lst_b->bestmovea == lst_b->bestmoveb)
+			lst_b->score = lst_b->bestmovea * -1;
+		else
+		{
+			if (lst_b->bestmovea > lst_b->bestmoveb)
+			{
+				tmp = (lst_b->bestmoveb * -1) - (lst_b->bestmovea * -1);
+				lst_b->score = tmp + (lst_b->bestmovea * -1);
+			}
+			else
+			{
+				tmp = (lst_b->bestmovea * -1) - (lst_b->bestmoveb * -1);
+				lst_b->score = tmp + (lst_b->bestmoveb * -1);
+			}
+		}
+	}
+}
+
+void	bestscore(t_ps **var_b, t_ps **head_b)
+{
+	t_ps	*lst_b;
+
+	lst_b = *var_b;
 	while (lst_b)
 	{
 		if (lst_b->bestmovea >= 0)
 		{
 			if (lst_b->bestmoveb >= 0)
 			{
-				if (lst_b->bestmovea == lst_b->bestmoveb)
-					lst_b->score = lst_b->bestmovea;
-				else
-				{
-					if (lst_b->bestmovea > lst_b->bestmoveb)
-					{
-						tmp = lst_b->bestmovea - lst_b->bestmoveb;
-						lst_b->score = tmp + lst_b->bestmoveb;
-					}
-					else
-					{
-						tmp = lst_b->bestmoveb - lst_b->bestmovea;
-						lst_b->score = tmp + lst_b->bestmovea;
-					}
-				}
+				postivecase(&lst_b);
 				lst_b = lst_b->next;
 			}
 			else
@@ -54,140 +85,56 @@ void	bestscore(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 		}
 		else
 		{
-			if (lst_b->bestmoveb >= 0)
-				lst_b->score = (lst_b->bestmovea * -1) + lst_b->bestmoveb;
-			else
-			{
-				if (lst_b->bestmovea == lst_b->bestmoveb)
-					lst_b->score = lst_b->bestmovea * -1;
-				else
-				{
-					if (lst_b->bestmovea > lst_b->bestmoveb)
-					{
-						tmp = (lst_b->bestmoveb * -1) - (lst_b->bestmovea * -1);
-						lst_b->score = tmp + (lst_b->bestmovea * -1);
-					}
-					else
-					{
-						tmp = (lst_b->bestmovea * -1) - (lst_b->bestmoveb * -1);
-						lst_b->score = tmp + (lst_b->bestmoveb * -1);
-					}
-				}
-			}
+			negativecase(&lst_b);
 			lst_b = lst_b->next;
 		}
 	}
 }
 
-void	pushtoaoptimazed(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
+void	pushtoaoptimazed(t_stack *stacks)
 {
-	t_ps	*lst_a;
 	t_ps	*lst_b;
-	int i;
-	int t;
+	int		i;
 
-	lst_a = *var_a;
-	lst_b = *var_b;
-	t = 0;
-	lst_a = *var_a;
-	lst_b = *var_b;
-	i = lst_b->score;
-	while (lst_b)
-	{
-		if (lst_b->score < i)
-			i = lst_b->score;
-		lst_b = lst_b->next;
-	}
-	lst_b = *head_b;
+	lst_b = stacks->head_b;
+	i = smallistscore(&lst_b);
+	lst_b = stacks->head_b;
 	while (lst_b)
 	{
 		if (lst_b->score == i)
 			break ;
 		lst_b = lst_b->next;
 	}
-	reset(var_a, head_a, var_b, head_b);
-	while (lst_b->bestmovea > 0 && lst_b->bestmoveb > 0)
-	{
-		rr(var_a, head_a, var_b, head_b);
-		lst_b->bestmovea--;
-		lst_b->bestmoveb--;
-	}	
-	reset(var_a, head_a, var_b, head_b);
-	(*var_b)->previous = NULL;
-	(*var_a)->previous = NULL;
-	while (lst_b->bestmovea < -1 && lst_b->bestmoveb < 0)
-	{
-		rrr(var_a, head_a, var_b, head_b);
-		lst_b->bestmovea++;
-		lst_b->bestmoveb++;
-	}
-	reset(var_a, head_a, var_b, head_b);
-	while (lst_b->bestmovea < -1)
-	{
-		rra(var_a, head_a);
-		lst_b->bestmovea += 1;
-	}
-	reset(var_a, head_a, var_b, head_b);
-	while (lst_b->bestmovea > 0)
-	{
-		ra(var_a, head_a);
-		lst_b->bestmovea -= 1;
-	}
-	reset(var_a, head_a, var_b, head_b);
-	(*var_b)->previous = NULL;
-	while (lst_b->bestmoveb < 0)
-	{
-		rrb(var_b, head_b);
-		lst_b->bestmoveb += 1;
-	}
-	reset(var_a, head_a, var_b, head_b);
-	while (lst_b->bestmoveb > 1)
-	{
-		rb(var_b, head_b);
-		lst_b->bestmoveb -= 1;
-	}
-	if (lst_b->bestmoveb == 1)
-	{
-		sb(var_b, head_b);
-		lst_b->bestmovea -= 1;
-	}
+	reset2(stacks);
+	optimazed_rules(lst_b, stacks);
+	reset2(stacks);
+	rulesfor_a(lst_b, stacks);
+	reset2(stacks);
+	rulesfor_b(lst_b, stacks);
+	reset2(stacks);
 }
 
-void	stack_sorting(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
+void	stack_sorting(t_stack *stacks)
 {
 	t_ps	*lst_a;
 	t_ps	*lst_b;
+	int		j;
 
-	lst_a = *var_a;
-	lst_b = *var_b;
+	lst_a = stacks->var_a;
+	lst_b = stacks->var_b;
+	j = smallistnumber(&lst_a);
+	lst_a = stacks->var_a;
 	while (lst_b)
 	{
-		bestmovea(&lst_a, head_a, &lst_b, head_b, j);
-		bestmoveinb(&lst_b, head_b);
-		bestscore(&lst_a, head_a, &lst_b, head_b);
-		lst_b = *head_b;
-		lst_a = *var_a;
-		// sleep(1);
-		// while (lst_a)
-		// {
-		// 	printf("%d--stack a--%d\n", lst_a->number, lst_a->count);
-		// 	//printf("'\n");
-		// 	lst_a = lst_a->next;
-		// }
-		// printf("'\n");
-		// while (lst_b)
-		// {
-		// 	printf("%d--stack b--|%d---|%d---|%d\n", lst_b->number, lst_b->bestmovea, lst_b->bestmoveb, lst_b->score);
-		// 	lst_b = lst_b->next;
-		// }
-		// printf("---------\n");
-		lst_b = *head_b;
-		lst_a = *var_a;
-		pushtoaoptimazed(var_a, head_a , &lst_b, head_b, j);
-		//reset(var_a, head_a, var_b, head_b);
-		pa(&lst_a, head_a, &lst_b, head_b);
-		*var_a = *head_a;
-		lst_a = *var_a;
-		lst_b = *head_b;
+		bestmovea(&lst_a, &lst_b, stacks);
+		bestmoveinb(&lst_b, &stacks->head_b);
+		bestscore(&lst_b, &stacks->head_b);
+		lst_b = stacks->head_b;
+		lst_a = stacks->var_a;
+		pushtoaoptimazed(stacks);
+		pa(&lst_a, &stacks->head_a, &lst_b, &stacks->head_b);
+		stacks->var_a = stacks->head_a;
+		lst_a = stacks->var_a;
+		lst_b = stacks->head_b;
 	}
 }

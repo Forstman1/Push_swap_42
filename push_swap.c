@@ -14,12 +14,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "libft/libft.h"
 #include <ctype.h>
 
-
-void	ft_lstadd_front(t_ps **lst, t_ps **head, t_ps *new)
+void ft_lstadd(t_ps **lst, t_ps **head, t_ps *new)
 {
-
 	if (!(*lst))
 	{
 
@@ -36,15 +35,21 @@ void	ft_lstadd_front(t_ps **lst, t_ps **head, t_ps *new)
 	}
 }
 
+void reset2(t_stack	*stacks)
+{
+	stacks->var_a = stacks->head_a;
+	stacks->var_b = stacks->head_b;
+}
+
 void	reset(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
 {
 	*var_a = *head_a;
 	*var_b = *head_b;
 }
 
-void	resetindex(t_ps	**var)
+void resetindex(t_ps **var)
 {
-	t_ps	*var_a;
+	t_ps *var_a;
 	int t;
 
 	t = -1;
@@ -57,57 +62,9 @@ void	resetindex(t_ps	**var)
 	}
 }
 
-void	reset_to_smallist_number(t_ps	**var_a, t_ps	**head_a, int j)
+int smallistnumber(t_ps **var_a)
 {
-	t_ps	*lst_a;
-
-	lst_a = *head_a;
-	while (lst_a)
-	{
-		sortingcount(&lst_a, head_a, j);
-		lst_a = lst_a->next;
-	}
-}
-
-
-void	reset_to_smallist_number_test(t_ps	**var_a, t_ps	**head_a, t_ps	**head_fake, t_ps **tails, t_ps **tmp1, t_ps **tmp2, int j)
-{
-	t_ps	*lst;
-
-	lst = *var_a;
-	while (lst)
-	{
-		if (lst->number == j)
-		{
-			*head_fake = lst;
-			lst = lst->previous;
-			if (!lst)
-			{
-				lst = *var_a;
-				while (lst->next)
-					lst = lst->next;
-				*tmp1 = lst;
-				*tmp2 = *head_fake;
-				*var_a = *head_a;
-				return ;
-			}
-			*tails = lst;
-			while (lst->previous)
-				lst = lst->previous;
-			*tmp2 = lst;
-			lst = *head_a;
-			while (lst->next)
-				lst = lst->next;
-			*tmp1 = lst;
-			return ;
-		}
-		lst = lst->next;
-	}
-}
-
-int	smallistnumber(t_ps	**var_a)
-{
-	t_ps	*lst;
+	t_ps *lst;
 	int j;
 
 	j = 0;
@@ -128,60 +85,49 @@ int	smallistnumber(t_ps	**var_a)
 
 int main(int argc, char *argv[])
 {
-	t_ps	*var_a;
-	t_ps	*var_b;
-	t_ps	*head_a;
-	t_ps	*head_b;
-	t_ps	*head_fake;
-	t_ps	*tails;
-	t_ps	*tmp1;
-	t_ps	*tmp2;
-	int i;
-	int j;
+	t_stack	stacks;
+	char	*str;
+	char	**splited;
+	int		i;
+	int		j;
 
 	i = 1;
+	str = "";
 	if (argc > 2)
 	{
 		while (argv[i])
+		{
+			checkvalid(argv[i]);
+			str = ft_strjoin(str, argv[i]);
+			str = ft_strjoin(str, " ");
 			i++;
-		i--;	
-		while (i > 0)
-		{
-			push(&var_a, &head_a, atoi(argv[i]));
-			i--;
 		}
-		j = smallistnumber(&var_a);
-		reset(&var_a, &head_a, &var_b, &head_b);
-		resetindex(&var_a);
-		reset_to_smallist_number(&var_a, &head_a, j);
-		reset(&var_a, &head_a, &var_b, &head_b);
-		while (var_a)
+		splited = ft_split(str, ' ');
+		checkduplicate(splited, i);
+		i = 0;
+		while (splited[i])
+			i++;
+		while (--i >= 0)
+			push(&stacks.var_a, &stacks.head_a, ft_atoi(splited[i]));
+		j = smallistnumber(&stacks.var_a);
+		reset2(&stacks);
+		resetindex(&stacks.var_a);
+		reset_to_smallist_number(&stacks.var_a, &stacks.head_a, j);
+		reset2(&stacks);
+		while (stacks.var_a)
 		{
-			var_a->lic = 0;
-			var_a = var_a->next;
+			stacks.var_a->lic = 0;
+			stacks.var_a = stacks.var_a->next;
 		}
-		reset(&var_a, &head_a, &var_b, &head_b);
-		lis(&var_a, &head_a);
-		reset(&var_a, &head_a, &var_b, &head_b);
-		var_a->subsequence = 0;
-		pushingtostackb(&var_a, &head_a, &var_b, &head_b);
-		reset(&var_a, &head_a, &var_b, &head_b);
-		stack_sorting(&var_a, &head_a, &var_b, &head_b, j);
-		reset(&var_a, &head_a, &var_b, &head_b);
-		reset_to_smallist_number(&var_a, &head_a, j);
-		reset(&var_a, &head_a, &var_b, &head_b);
-			// while (var_a)
-			// {
-			// 	printf("%d--stack a--%d\n", var_a->number, var_a->lic);
-			// 	//printf("'\n");
-			// 	var_a = var_a->next;
-			// }
-			// printf("'\n");
-			// while (var_b)
-			// {
-			// 	printf("%d--stack b--%d\n", var_b->number, var_b->lic);
-			// 	var_b = var_b->next;
-			// }
+		reset2(&stacks);
+		lis(&stacks.var_a, &stacks.head_a);
+		reset2(&stacks);
+		stacks.var_a->subsequence = 0;
+		pushingtostackb(&stacks);
+		reset2(&stacks);
+		stack_sorting(&stacks);
+		reset2(&stacks);
+		reset_to_smallist_number(&stacks.var_a, &stacks.head_a, j);
 	}
 	return (0);
 }

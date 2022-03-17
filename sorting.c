@@ -10,192 +10,138 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "push_swap.h"
 
-int	checkmoves(t_ps *var ,t_ps **var_b, t_ps **head_b, int i)
+void	sortingprocess(int t, int i, t_ps *lst, t_ps **head_a)
 {
-	t_ps	*lst;
-	int j;
-	int t;
-
-	lst = *var_b;
-	j = 0;
-	t = 0;
-	while (lst->number != var->number)
+	if (t <= (i / 2))
 	{
-		if (j < (i / 2))
+		lst = *head_a;
+		while (t > 0)
 		{
-			j++;
-			lst = lst->next;
+			ra(&lst, head_a);
+			t--;
 		}
-		else
-		{
-			j++;
-			t = i - j;
-			t = t * -1;
-			lst = lst->next;
-		}
+		return ;
 	}
-	if (t < 0)
-		return (t);
-	return (j);
+	else
+	{
+		lst = *head_a;
+		lst->previous = NULL;
+		while (i > t)
+		{
+			rra(&lst, head_a);
+			i--;
+		}
+		return ;
+	}
 }
 
-void	bestmoveinb(t_ps **var_b, t_ps **head_b)
+void	sortingcount(t_ps **var_a, t_ps **head_a, int j)
 {
-	t_ps	*var;
 	int		i;
-
-	i = 0;
-	var = *var_b;
-	while (var)
-	{
-		i++;
-		var = var->next;
-	}
-	var = *var_b;
-	while (var)
-	{
-		var->bestmoveb = checkmoves(var, var_b, head_b, i);
-		var = var->next;
-	}
-}
-
-void	sortingcount(t_ps	**var_a, t_ps	**head_a, int j)
-{
-	int i;
-	int t;
+	int		t;
 	t_ps	*lst;
 
 	i = 0;
 	t = 0;
 	lst = *var_a;
-	while (lst)
-	{
-		i++;
-		lst = lst->next;
-	}
+	i = lenghtoflist(lst);
 	lst = *var_a;
 	while (lst)
 	{
-		if (t <= (i / 2))
+		if (lst->number == j)
 		{
-			if (lst->number == j)
-			{
-				lst = *var_a;
-				while (t > 0)
-				{
-					ra(&lst, head_a);
-					t--;
-				}
-				return ;
-			}
-			else
-			{
-				lst = lst->next;
-				t++;
-			}
-		}
-		else if (t > (i / 2))
-		{	
-			if (lst->number == j)
-			{
-				lst = *var_a;
-				lst->previous = NULL;
-				while (i > t)
-				{
-					rra(&lst, head_a);
-					i--;
-				}
-				return ;
-			}
-			else
-			{
-				lst = lst->next;
-				t++;
-			}
+			sortingprocess(t, i, *var_a, head_a);
+			return ;
 		}
 		else
-		{
 			lst = lst->next;
-			t++;
-		}
+		t++;
 	}
 }
 
+int	biggestnumber(t_ps **var_a, int j, int i_value)
+{
+	int		t;
+	int		lenght;
+	t_ps	*lst_a;
 
-void	bestmovea(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
+	t = 0;
+	lst_a = *var_a;
+	lenght = lenghtoflist(lst_a);
+	lst_a = *var_a;
+	if (lst_a->number > i_value)
+		return (0);
+	while (lst_a)
+	{
+		if (lst_a->number == j)
+		{
+			if (t < (lenght / 2))
+				return (t);
+			else
+				return ((lenght - t + 1) * -1);
+		}
+		t++;
+		lst_a = lst_a->next;
+	}
+	return (0);
+}
+
+static int	checkingnumbers(t_ps **var_a, int i_value, int lenght, int j)
+{
+	int		i;
+	t_ps	*lst_a;
+
+	i = 0;
+	lst_a = *var_a;
+	while (lst_a)
+	{
+		i++;
+		if (lst_a->number < i_value)
+		{
+			lst_a = lst_a->next;
+			if (!lst_a)
+				return (biggestnumber(var_a, j, i_value));
+			if (lst_a->number > i_value)
+			{
+				if (i <= (lenght / 2))
+					return (i);
+				else
+					return ((lenght - i + 1) * -1);
+			}
+		}
+		else
+			lst_a = lst_a->next;
+	}
+	return (0);
+}
+
+void	bestmovea(t_ps	**var_a, t_ps	**var_b, t_stack *stacks)
 {
 	t_ps	*lst_a;
 	t_ps	*lst_b;
-	int i;
-	int i_value;
-	int t;
-	int lenght;
+	int		lenght;
+	int		i_value;
+	int		j;
 
 	lst_a = *var_a;
 	lst_b = *var_b;
-	i = 0;
-	t = 0;
-	i_value = 0;
 	lenght = 0;
+	i_value = 0;
+	j = smallistnumber(&lst_a);
+	lst_a = *var_a;
 	while (lst_a)
 	{
 		lenght++;
 		lst_a = lst_a->next;
 	}
-	lst_a = *head_a;
+	lst_a = stacks->head_a;
 	while (lst_b)
 	{
-		lst_a = *head_a;
+		lst_a = stacks->head_a;
 		i_value = lst_b->number;
-		i = 0;
-		while (lst_a)
-		{
-			if (lst_a->number < i_value)
-			{
-				lst_a = lst_a->next;
-				i++;
-				if (!lst_a)
-				{
-					lst_a = *var_a;
-					t = 0;
-					if (lst_a->number > i_value)
-					{
-						lst_b->bestmovea = 0;
-						break ;
-					}
-					while (lst_a)
-					{
-						if (lst_a->number == j)
-						{
-							if (t < (lenght / 2))
-								lst_b->bestmovea = t;
-							else
-								lst_b->bestmovea = (lenght - t + 1) * -1;
-							break ;
-						}
-						t++;
-						lst_a = lst_a->next;
-					}
-					break ;
-				}
-				if (lst_a->number > i_value)
-				{
-					if (i <= (lenght / 2))
-						lst_b->bestmovea = i;
-					else
-						lst_b->bestmovea = (lenght - i + 1) * -1;
-					break ;
-				}
-			}
-			else
-			{
-				lst_a = lst_a->next;
-				i++;
-			}
-		}
+		lst_b->bestmovea = checkingnumbers(&lst_a, i_value, lenght, j);
 		lst_b = lst_b->next;
 	}
 }

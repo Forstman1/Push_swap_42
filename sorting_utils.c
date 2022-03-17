@@ -10,62 +10,109 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "push_swap.h"
 
-void	pushtoa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j)
+int	checkmoves(t_ps *var, t_ps **var_b, t_ps **head_b, int i)
 {
-	t_ps	*lst_a;
-	t_ps	*lst_b;
+	t_ps	*lst;
+	int		j;
+	int		t;
 
-	lst_a = *var_a;
-	lst_b = *var_b;
-
-	while (lst_b)
+	lst = *var_b;
+	j = 0;
+	t = 0;
+	while (lst->number != var->number)
 	{
-		lst_b = *head_b;
-		if (lst_b->bestmovea < 0)
+		if (j < (i / 2))
 		{
-			lst_a = *head_a;
-			lst_a->previous = NULL;
-			while (lst_b->bestmovea < 0)
-			{
-				rra(&lst_a, head_a);
-				lst_b->bestmovea += 1;
-			}
-			pa(&lst_a, head_a, &lst_b, head_b);
-			lst_a = *head_a;
-			sa(&lst_a, head_a);
-			lst_b = *head_b;
-			lst_a = *head_a;
-			while (lst_a)
-			{
-				sortingcount(&lst_a, head_a, j);
-				lst_a = lst_a->next;
-			}
-			lst_a = *head_a;
-			bestmovea(&lst_a, head_a, &lst_b, head_b, j);
-			lst_a = *head_a;
+			j++;
+			lst = lst->next;
 		}
 		else
 		{
-			lst_a = *head_a;
-			while (lst_b->bestmovea > 0)
-			{
-				ra(&lst_a, head_a);
-				lst_b->bestmovea -= 1;
-			}
-			pa(&lst_a, head_a, &lst_b, head_b);
-			lst_a = *head_a;
-			lst_b = *head_b;
-			while (lst_a)
-			{
-				sortingcount(&lst_a, head_a, j);
-				lst_a = lst_a->next;
-			}
-			lst_a = *head_a;
-			bestmovea(&lst_a, head_a, &lst_b, head_b, j);
-			lst_a = *head_a;
+			j++;
+			t = i - j;
+			t = t * -1;
+			lst = lst->next;
 		}
+	}
+	if (t < 0)
+		return (t);
+	return (j);
+}
+
+void	bestmoveinb(t_ps **var_b, t_ps **head_b)
+{
+	t_ps	*var;
+	int		i;
+
+	i = 0;
+	var = *var_b;
+	while (var)
+	{
+		i++;
+		var = var->next;
+	}
+	var = *var_b;
+	while (var)
+	{
+		var->bestmoveb = checkmoves(var, var_b, head_b, i);
+		var = var->next;
+	}
+}
+
+void	optimazed_rules(t_ps	*lst_b, t_stack	*stacks)
+{
+	while (lst_b->bestmovea > 0 && lst_b->bestmoveb > 0)
+	{
+		rr(&stacks->var_a, &stacks->head_a, &stacks->var_b, &stacks->head_b);
+		lst_b->bestmovea--;
+		lst_b->bestmoveb--;
+	}
+	reset2(stacks);
+	stacks->var_b->previous = NULL;
+	stacks->var_a->previous = NULL;
+	while (lst_b->bestmovea < -1 && lst_b->bestmoveb < 0)
+	{
+		rrr(&stacks->var_a, &stacks->head_a, &stacks->var_b, &stacks->head_b);
+		lst_b->bestmovea++;
+		lst_b->bestmoveb++;
+	}
+	reset2(stacks);
+}
+
+void	rulesfor_a(t_ps	*lst_b, t_stack	*stacks)
+{
+	while (lst_b->bestmovea < -1)
+	{
+		rra(&stacks->var_a, &stacks->head_a);
+		lst_b->bestmovea += 1;
+	}
+	reset2(stacks);
+	while (lst_b->bestmovea > 0)
+	{
+		ra(&stacks->var_a, &stacks->head_a);
+		lst_b->bestmovea -= 1;
+	}
+}
+
+void	rulesfor_b(t_ps	*lst_b, t_stack	*stacks)
+{
+	stacks->var_b->previous = NULL;
+	while (lst_b->bestmoveb < 0)
+	{
+		rrb(&stacks->var_b, &stacks->head_b);
+		lst_b->bestmoveb += 1;
+	}
+	reset2(stacks);
+	while (lst_b->bestmoveb > 1)
+	{
+		rb(&stacks->var_b, &stacks->head_b);
+		lst_b->bestmoveb -= 1;
+	}
+	if (lst_b->bestmoveb == 1)
+	{
+		sb(&stacks->var_b, &stacks->head_b);
+		lst_b->bestmovea -= 1;
 	}
 }
