@@ -114,16 +114,13 @@ void	pushtoaoptimazed(t_stack *stacks)
 	reset2(stacks);
 }
 
-void	stack_sorting(t_stack *stacks)
+void	stack_sorting(t_stack *stacks, int j)
 {
 	t_ps	*lst_a;
 	t_ps	*lst_b;
-	int		j;
 
 	lst_a = stacks->var_a;
 	lst_b = stacks->var_b;
-	j = smallistnumber(&lst_a);
-	lst_a = stacks->var_a;
 	while (lst_b)
 	{
 		bestmovea(&lst_a, &lst_b, stacks);

@@ -29,7 +29,6 @@ void	lis(t_ps **var_a, t_ps **head)
 	int		j;
 	int		j_value;
 	t_ps	*var;
-	int		i;
 	int		t;
 
 	j = 0;

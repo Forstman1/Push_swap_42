@@ -13,12 +13,11 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include "libft/libft.h"
-
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <ctype.h>
+# include "libft/libft.h"
 
 typedef struct s_ps
 {
@@ -47,8 +46,8 @@ void	sb(t_ps **var, t_ps	**head);
 void	push(t_ps **var, t_ps **head, int i);
 void	ft_lstadd(t_ps **lst, t_ps **head, t_ps *new);
 void	ss(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps	**head_b);
-void	pb(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
-void	pa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
+void	pb(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b);
+void	pa(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b);
 void	ra(t_ps **var_a, t_ps **head_a);
 void	rb(t_ps **var_b, t_ps **head_b);
 void	rr(t_ps	**var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b);
@@ -57,21 +56,19 @@ void	rrb(t_ps **var_b, t_ps **head_b);
 void	lis(t_ps **var_a, t_ps **head);
 int		checkprevious(t_ps	*var_a, t_ps	*head_a, int j_value, int *t);
 void	pushingtostackb(t_stack *stacks);
-void	reset(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
+void	reset(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b);
 void	bestmoveinb(t_ps **var_b, t_ps **head_b);
-int		checkmoves(t_ps *var ,t_ps **var_b, t_ps **head_b, int i);
+int		checkmoves(t_ps *var, t_ps **var_b, t_ps **head_b, int i);
 void	sortingcount(t_ps **var_a, t_ps **head_a, int j);
 void	bestmovea(t_ps	**var_a, t_ps	**var_b, t_stack *stacks);
-void	pushtoa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b, int j);
-void	stack_sorting(t_stack *stacks);
 void	pushtoaoptimazed(t_stack *stacks);
 void	bestscore(t_ps **var_b, t_ps **head_b);
 void	rrr(t_ps	**var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b);
-void	pa_opt(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
+void	pa_opt(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b);
 void	sa_opt(t_ps **var, t_ps	**head);
 void	ra_opt(t_ps **var_a, t_ps **head_a);
 void	rra_opt(t_ps **var_a, t_ps **head_a);
-void	pb_opt(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
+void	pb_opt(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b);
 void	sb_opt(t_ps **var, t_ps	**head);
 void	rb_opt(t_ps **var_b, t_ps **head_b);
 void	rrb_opt(t_ps **var_b, t_ps **head_b);
@@ -86,5 +83,11 @@ void	optimazed_rules(t_ps	*lst_b, t_stack	*stacks);
 void	rulesfor_a(t_ps	*lst_b, t_stack	*stacks);
 void	rulesfor_b(t_ps	*lst_b, t_stack	*stacks);
 int		lenghtoflist(t_ps	*lst);
+char	**parsing(char **argv, int *i);
+void	switching_sb_sa(t_ps	*lst);
+void	reversing_a_b(t_ps	*lst);
+void	bestscore_for_a(t_stack *stacks);
+void	r_reversing_a(t_ps	*lst);
+void	stack_sorting(t_stack *stacks, int j);
 
 #endif

@@ -1,6 +1,9 @@
 
 
-CFILES  = push_swap.c sa_pa_ra_rra.c sb_pb_rb_rrb.c ss_rr_rrr.c push_swap_utils.c sorting.c sorting_utils.c sorting_optimazed.c sa_pa_ra_rra_opt.c sb_pb_rb_rrb_opt.c pushtostackb.c pushtostackb_utils.c parsing.c
+CFILES  = push_swap.c sa_pa_ra_rra.c sb_pb_rb_rrb.c ss_rr_rrr.c \
+			push_swap_utils.c sorting.c sorting_utils.c sorting_optimazed.c \
+			sa_pa_ra_rra_opt.c sb_pb_rb_rrb_opt.c pushtostackb.c \
+			pushtostackb_utils.c parsing.c push_swap_utils2.c
 
 OFILES	= $(CFILES:.c=.o)
 
@@ -29,4 +32,4 @@ fclean:	clean
 re: fclean all 
 
 execute: $(NAME) push_swap.c
-	@./push_swap 2 3 8 9 1 7 12 75 32 68
+	@./push_swap 1640546058 -993817370 1051880985 -1480283307 -1965453146

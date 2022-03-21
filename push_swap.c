@@ -17,40 +17,10 @@
 #include "libft/libft.h"
 #include <ctype.h>
 
-void ft_lstadd(t_ps **lst, t_ps **head, t_ps *new)
+void	resetindex(t_ps **var)
 {
-	if (!(*lst))
-	{
-
-		*lst = new;
-		*head = *lst;
-		(*lst)->previous = NULL;
-	}
-	else
-	{
-		new->next = *lst;
-		(*lst)->previous = new;
-		*lst = new;
-		*head = *lst;
-	}
-}
-
-void reset2(t_stack	*stacks)
-{
-	stacks->var_a = stacks->head_a;
-	stacks->var_b = stacks->head_b;
-}
-
-void	reset(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b)
-{
-	*var_a = *head_a;
-	*var_b = *head_b;
-}
-
-void resetindex(t_ps **var)
-{
-	t_ps *var_a;
-	int t;
+	t_ps	*var_a;
+	int		t;
 
 	t = -1;
 	var_a = *var;
@@ -62,10 +32,10 @@ void resetindex(t_ps **var)
 	}
 }
 
-int smallistnumber(t_ps **var_a)
+int	smallistnumber(t_ps **var_a)
 {
-	t_ps *lst;
-	int j;
+	t_ps	*lst;
+	int		j;
 
 	j = 0;
 	lst = *var_a;
@@ -83,51 +53,134 @@ int smallistnumber(t_ps **var_a)
 	return (j);
 }
 
-int main(int argc, char *argv[])
+void	sortingpart(t_stack *stacks, int j)
+{
+	resetindex(&stacks->var_a);
+	reset_to_smallist_number(&stacks->var_a, &stacks->head_a, j);
+	while (stacks->var_a)
+	{
+		stacks->var_a->lic = 0;
+		stacks->var_a = stacks->var_a->next;
+	}
+	reset2(stacks);
+	lis(&stacks->var_a, &stacks->head_a);
+	pushingtostackb(stacks);
+	stack_sorting(stacks, j);
+	reset_to_smallist_number(&stacks->var_a, &stacks->head_a, j);
+}
+
+void	threecases(t_stack *stacks)
+{
+	int		first;
+	int		second;
+	int		third;
+	t_ps	*lst_a;
+
+	lst_a = stacks->var_a;
+	first = lst_a->number;
+	lst_a = lst_a->next;
+	second = lst_a->number;
+	lst_a = lst_a->next;
+	third = lst_a->number;
+	lst_a = stacks->var_a;
+	if ((first < second) && (second < third))
+		return ;
+	else if ((first > third) && (first < second) && (second > first))
+	{
+		stacks->var_a->previous = NULL;
+		rra(&stacks->var_a, &stacks->head_a);
+		return ;
+	}
+	else if ((first < third) && (first > second) && (second < third))
+	{
+		sa(&stacks->var_a, &stacks->head_a);
+		return ;
+	}
+	else if ((first > third) && (first > second)  && (second < third))
+	{
+		ra(&stacks->var_a, &stacks->head_a);
+		return ;
+	}
+	else if ((first > third) && (first > second) && (second > third))
+	{
+		sa(&stacks->var_a, &stacks->head_a);
+		stacks->var_a->previous = NULL;
+		rra(&stacks->var_a, &stacks->head_a);
+		return ;
+	}
+	else if ((first < third) && (first < second) && (third < second))
+	{
+		sa(&stacks->var_a, &stacks->head_a);
+		ra(&stacks->var_a, &stacks->head_a);
+		return ;
+	}
+}
+
+void	fivecases(t_stack	*stacks, int j)
+{
+	int		i;
+	int		t;
+	t_ps	*lst_a;
+	t_ps	*lst_b;
+
+	i = 2;
+	t = 2;
+	lst_a = stacks->head_a;
+	lst_b = stacks->head_b;
+	if (lst_a->number == j)
+		rra(&stacks->var_a, &stacks->head_a);
+	while (i > 0)
+	{
+		pb(&stacks->var_a, &stacks->head_a, &stacks->var_b, &stacks->head_b);
+		i--;
+	}
+	threecases(stacks);
+	reset2(stacks);
+	stack_sorting(stacks, j);
+	reset_to_smallist_number(&stacks->var_a, &stacks->head_a, j);
+}
+
+void	cases(t_stack	*stacks, int j)
+{
+	int		i;
+	t_ps	*lst;
+
+	i = 0;
+	lst = stacks->head_a;
+	while (lst)
+	{
+		i++;
+		lst = lst->next;
+	}
+	if (i == 3)
+		threecases(stacks);
+	else if (i == 5)
+		fivecases(stacks, j);
+	else
+		sortingpart(stacks, j);
+}
+
+int	main(int argc, char *argv[])
 {
 	t_stack	stacks;
-	char	*str;
 	char	**splited;
 	int		i;
 	int		j;
 
 	i = 1;
-	str = "";
-	if (argc > 2)
+	if (argc > 1)
 	{
-		while (argv[i])
-		{
-			checkvalid(argv[i]);
-			str = ft_strjoin(str, argv[i]);
-			str = ft_strjoin(str, " ");
-			i++;
-		}
-		splited = ft_split(str, ' ');
-		checkduplicate(splited, i);
-		i = 0;
-		while (splited[i])
-			i++;
+		splited = parsing(argv, &i);
+		j = i;
 		while (--i >= 0)
 			push(&stacks.var_a, &stacks.head_a, ft_atoi(splited[i]));
 		j = smallistnumber(&stacks.var_a);
-		reset2(&stacks);
-		resetindex(&stacks.var_a);
-		reset_to_smallist_number(&stacks.var_a, &stacks.head_a, j);
-		reset2(&stacks);
-		while (stacks.var_a)
-		{
-			stacks.var_a->lic = 0;
-			stacks.var_a = stacks.var_a->next;
-		}
-		reset2(&stacks);
-		lis(&stacks.var_a, &stacks.head_a);
-		reset2(&stacks);
-		stacks.var_a->subsequence = 0;
-		pushingtostackb(&stacks);
-		reset2(&stacks);
-		stack_sorting(&stacks);
-		reset2(&stacks);
-		reset_to_smallist_number(&stacks.var_a, &stacks.head_a, j);
+		cases(&stacks, j);
+		return (0);
 	}
-	return (0);
+	else
+	{
+		write(1, "ERROR\n", 6);
+		return (0);
+	}
 }

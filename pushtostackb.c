@@ -12,26 +12,24 @@
 
 #include "push_swap.h"
 
-static void bestscore_for_a(t_stack *stacks)
+static void	pushingtob_utils(t_ps	*lst, t_stack *stacks)
 {
-	t_ps	*lst_a;
-
-	lst_a = stacks->var_a;
-	bestmove_for_a(&stacks->var_a, &stacks->head_a);
-	while (lst_a)
+	while (lst->bestmovea > 0)
 	{
-		if (lst_a->lic == 0)
-		{
-			if (lst_a->bestmovea >= 0)
-				lst_a->score = lst_a->bestmovea;
-			else
-				lst_a->score = lst_a->bestmovea * -1;
-		}
-		lst_a = lst_a->next;
+		ra(&stacks->var_a, &stacks->head_a);
+		lst->bestmovea--;
 	}
+	stacks->var_a->previous = NULL;
+	while (lst->bestmovea < 0)
+	{
+		rra(&stacks->var_a, &stacks->head_a);
+		lst->bestmovea++;
+	}
+	pb(&stacks->var_a, &stacks->head_a, &stacks->var_b, \
+		&stacks->head_b);
 }
 
-static int pushingtob(t_stack *stacks, int i)
+static int	pushingtob(t_stack *stacks, int i)
 {
 	t_ps	*lst;
 
@@ -42,38 +40,39 @@ static int pushingtob(t_stack *stacks, int i)
 		{
 			if (lst->score == i)
 			{
-				while (lst->bestmovea > 0)
-				{
-					ra(&stacks->var_a, &stacks->head_a);
-					lst->bestmovea--;
-				}
-				stacks->var_a = stacks->head_a;
-				stacks->var_a->previous = NULL;
-				while (lst->bestmovea < 0)
-				{
-					rra(&stacks->var_a, &stacks->head_a);
-					lst->bestmovea++;
-				}
-				stacks->var_a = stacks->head_a;
-				pb(&stacks->var_a, &stacks->head_a, &stacks->var_b, &stacks->head_b);
+				pushingtob_utils(lst, stacks);
 				return (1);
 			}
-			lst = lst->next;
 		}
-		else
-			lst = lst->next;
+		lst = lst->next;
 	}
 	return (0);
 }
 
-void	lic_process(t_stack *stacks)
+static void	subsequence(t_ps	*lst_a)
 {
-	int caase;
-	int i;
-	int j;
-	t_ps	*lst_a;
+	int	caase;
 
 	caase = 0;
+	lst_a->lic = 1;
+	caase = lst_a->subsequence;
+	while (lst_a)
+	{
+		if (caase == lst_a->count)
+		{
+			lst_a->lic = 1;
+			caase = lst_a->subsequence;
+		}
+		lst_a = lst_a->previous;
+	}
+}
+
+static void	lic_process(t_stack *stacks)
+{
+	int		i;
+	int		j;
+	t_ps	*lst_a;
+
 	i = 0;
 	j = 0;
 	lst_a = stacks->head_a;
@@ -88,24 +87,14 @@ void	lic_process(t_stack *stacks)
 	{
 		if (i == lst_a->index)
 		{
-			lst_a->lic = 1;
-			caase = lst_a->subsequence;
-			while (lst_a)
-			{
-				if (caase == lst_a->count)
-				{
-					lst_a->lic = 1;
-					caase = lst_a->subsequence;
-				}
-				lst_a = lst_a->previous;
-			}
+			subsequence(lst_a);
 			break ;
 		}
 		lst_a = lst_a->previous;
 	}
 }
 
-void pushingtostackb(t_stack *stacks)
+void	pushingtostackb(t_stack *stacks)
 {
 	t_ps	*lst_a;
 	int		i;
@@ -123,7 +112,7 @@ void pushingtostackb(t_stack *stacks)
 		lst_a = stacks->head_a;
 		j = pushingtob(stacks, i);
 		if (j == 0)
-			break;
+			break ;
 		lst_a = stacks->head_a;
 	}
 	lst_a = stacks->head_a;
