@@ -12,7 +12,7 @@
 
 #include "checker.h"
 
-void	pb_bonus(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
+void	pb(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
 {
 	t_ps	*lst_a;
 
@@ -26,7 +26,7 @@ void	pb_bonus(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
 	*var_a = *head_a;
 }
 
-void	sb_bonus(t_ps **var, t_ps	**head)
+void	sb(t_ps **var, t_ps	**head)
 {
 	t_ps	*lst;
 	int		count;
@@ -49,13 +49,15 @@ void	sb_bonus(t_ps **var, t_ps	**head)
 	switching_sb_sa(lst);
 }
 
-void	rb_bonus(t_ps **var_b, t_ps **head_b)
+void	rb(t_ps **var_b, t_ps **head_b)
 {
 	t_ps	*lst;
 	int		count;
 
 	lst = *var_b;
 	count = 0;
+	if (!(*var_b))
+		return ;
 	while (lst)
 	{
 		lst = lst->next;
@@ -71,7 +73,7 @@ void	rb_bonus(t_ps **var_b, t_ps **head_b)
 	lst = *head_b;
 }
 
-void	rrb_bonus(t_ps **var_b, t_ps **head_b)
+void	rrb(t_ps **var_b, t_ps **head_b)
 {
 	t_ps	*lst;
 	int		a;

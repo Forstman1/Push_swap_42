@@ -12,7 +12,7 @@
 
 #include "checker.h"
 
-void	pa_bonus(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
+void	pa(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
 {
 	t_ps	*lst_b;
 
@@ -26,7 +26,7 @@ void	pa_bonus(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
 	*var_b = *head_b;
 }
 
-void	sa_bonus(t_ps **var, t_ps	**head)
+void	sa(t_ps **var, t_ps	**head)
 {
 	t_ps	*lst;
 	int		count;
@@ -49,7 +49,7 @@ void	sa_bonus(t_ps **var, t_ps	**head)
 	switching_sb_sa(lst);
 }
 
-void	ra_bonus(t_ps **var_a, t_ps **head_a)
+void	ra(t_ps **var_a, t_ps **head_a)
 {
 	t_ps	*lst;
 
@@ -87,7 +87,7 @@ static void	r_reversing_a(t_ps	*lst)
 	}
 }
 
-void	rra_bonus(t_ps **var_a, t_ps **head_a)
+void	rra(t_ps **var_a, t_ps **head_a)
 {
 	t_ps	*lst;
 

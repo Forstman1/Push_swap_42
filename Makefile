@@ -7,6 +7,10 @@ CFILES  = push_swap.c sa_pa_ra_rra.c sb_pb_rb_rrb.c ss_rr_rrr.c \
 
 OFILES	= $(CFILES:.c=.o)
 
+CBONUS = checker/parsing_bonus.c checker/sa_pa_ra_rra_bonus.c checker/sb_pb_rb_rrb_bonus.c checker_utils.c checker/moves_utils.c checker/ss_rr_rrr_bonus.c
+
+OBONUS = $(CBONUS:.c=.o)
+
 CC	= gcc
 INT	= push_swap.h
 NAME = push_swap.a
@@ -27,9 +31,13 @@ clean:
 	@rm -f $(OFILES)
 
 fclean:	clean
-	@rm -f  $(NAME)
+	@rm -f  $(NAME) $(OBONUS)
 
-re: fclean all 
+re: fclean all
+
+bonus: $(OBONUS) checker_bonus.c
+	@make -C libft
+	@$(CC) checker_bonus.c $(OBONUS) checker/checker.h libft/libft.a
 
 execute: $(NAME) push_swap.c
-	@./push_swap 1640546058 -993817370 1051880985 -1480283307 -1965453146
+	@./push_swap -1121591983 -1928934132 1068561763 -196721848 2047683031

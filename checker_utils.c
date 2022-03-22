@@ -11,56 +11,28 @@
 /* ************************************************************************** */
 
 
-#include "checker.h"
+#include "checker/checker.h"
 
-char	*readline(char *s, char *buf, char *stati)
+
+char	*get_next_line(void)
 {
+	char	buffer[600000];
+	char	buff;
+	int		nbyte;
 	int		i;
-	void	*ptr;
+	int		j;
 
-	while (s == NULL || !ft_strchr(s, '\n'))
+	nbyte = 0;
+	j = 0;
+	i = 0;
+	while ((nbyte = read(0, &buff, 1)) && nbyte > 0)
 	{
-		i = read(0, buf, 1);
-		if (i <= 0)
-		{
-			if (stati && *stati)
-				free(stati);
-			if (s && *s)
-				return (free(buf), s);
-			return (free(buf), free(s), NULL);
-		}
-		ptr = s;
-		s = ft_strjoin(s, buf);
-		printf("%s", buf);
-		free(ptr);
-		ft_bzero(buf, 1 + 1);
+		buffer[j++] = buff;
+		if (buff == '\n')
+			break ;	
 	}
-	return (free(buf), s);
-}
-
-/*******************/
-
-char	*get_next_line(int fd)
-{
-	char		*s;
-	char		*buf;
-	static char	*stati;
-
-	s = NULL;
-	if (stati != NULL)
-	{
-		s = ft_strdup(stati);
-		free(stati);
-		stati = NULL;
-	}
-	buf = (char *)ft_calloc(1 + 1, sizeof(char));
-	s = readline(s, buf, stati);
-	if (s == NULL)
+	buffer[j] = '\0';
+	if (j == 0 && nbyte <= 0)
 		return (NULL);
-	if (ft_strchr(s, '\n'))
-	{
-		stati = ft_strdup(ft_strchr(s, '\n') + 1);
-		ft_bzero(ft_strchr(s, '\n') + 1, ft_strlen(ft_strchr(s, '\n') + 1));
-	}
-	return (s);
+	return (ft_strdup(buffer));
 }

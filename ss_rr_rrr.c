@@ -16,6 +16,9 @@ void	ss(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
 {
 	sa(var_a, head_a);
 	sb(var_b, head_b);
+	*var_a = *head_a;
+	*var_b = *head_b;
+	printf("ss\n");
 }
 
 void	rr(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)

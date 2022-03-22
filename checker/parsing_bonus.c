@@ -77,3 +77,26 @@ void	checkduplicate(char	**splited, int i)
 		j++;
 	}
 }
+
+char	**parsings(char **argv, int *i)
+{
+	char	*str;
+	int		j;
+	char	**splited;
+
+	str = "";
+	while (argv[*i])
+	{
+		checkvalid(argv[*i]);
+		str = ft_strjoin(str, argv[*i]);
+		str = ft_strjoin(str, " ");
+		(*i)++;
+	}
+	splited = ft_split(str, ' ');
+	*i = 0;
+	while (splited[*i])
+		(*i)++;
+	j = *i;
+	checkduplicate(splited, j);
+	return (splited);
+}

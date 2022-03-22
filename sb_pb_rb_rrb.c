@@ -81,6 +81,8 @@ void	rb(t_ps **var_b, t_ps **head_b)
 
 	lst = *var_b;
 	count = 0;
+	if (!(*var_b))
+		return ;
 	while (lst)
 	{
 		lst = lst->next;
@@ -106,6 +108,8 @@ void	rrb(t_ps **var_b, t_ps **head_b)
 	lst = *var_b;
 	a = 0;
 	b = 0;
+	if (!(*var_b))
+		return ;
 	while (lst->next)
 		lst = lst->next;
 	while (lst->previous)
