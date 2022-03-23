@@ -89,5 +89,9 @@ void	reversing_a_b(t_ps	*lst);
 void	bestscore_for_a(t_stack *stacks);
 void	r_reversing_a(t_ps	*lst);
 void	stack_sorting(t_stack *stacks, int j);
+void	threecases(t_stack *stacks);
+void	fivecases(t_stack	*stacks, int j);
+void	free_parsing(char	**splited);
+void	free_everything(t_stack	*stacks);
 
 #endif

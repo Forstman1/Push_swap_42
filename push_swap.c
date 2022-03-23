@@ -69,77 +69,6 @@ void	sortingpart(t_stack *stacks, int j)
 	reset_to_smallist_number(&stacks->var_a, &stacks->head_a, j);
 }
 
-void	threecases(t_stack *stacks)
-{
-	int		first;
-	int		second;
-	int		third;
-	t_ps	*lst_a;
-
-	lst_a = stacks->var_a;
-	first = lst_a->number;
-	lst_a = lst_a->next;
-	second = lst_a->number;
-	lst_a = lst_a->next;
-	third = lst_a->number;
-	lst_a = stacks->var_a;
-	if ((first < second) && (second < third))
-		return ;
-	else if ((first > third) && (first < second) && (second > first))
-	{
-		stacks->var_a->previous = NULL;
-		rra(&stacks->var_a, &stacks->head_a);
-		return ;
-	}
-	else if ((first < third) && (first > second) && (second < third))
-	{
-		sa(&stacks->var_a, &stacks->head_a);
-		return ;
-	}
-	else if ((first > third) && (first > second)  && (second < third))
-	{
-		ra(&stacks->var_a, &stacks->head_a);
-		return ;
-	}
-	else if ((first > third) && (first > second) && (second > third))
-	{
-		sa(&stacks->var_a, &stacks->head_a);
-		stacks->var_a->previous = NULL;
-		rra(&stacks->var_a, &stacks->head_a);
-		return ;
-	}
-	else if ((first < third) && (first < second) && (third < second))
-	{
-		sa(&stacks->var_a, &stacks->head_a);
-		ra(&stacks->var_a, &stacks->head_a);
-		return ;
-	}
-}
-
-void	fivecases(t_stack	*stacks, int j)
-{
-	int		i;
-	int		t;
-	t_ps	*lst_a;
-	t_ps	*lst_b;
-
-	i = 2;
-	t = 2;
-	lst_a = stacks->head_a;
-	lst_b = stacks->head_b;
-	if (lst_a->number == j)
-		rra(&stacks->var_a, &stacks->head_a);
-	while (i > 0)
-	{
-		pb(&stacks->var_a, &stacks->head_a, &stacks->var_b, &stacks->head_b);
-		i--;
-	}
-	threecases(stacks);
-	reset2(stacks);
-	stack_sorting(stacks, j);
-	reset_to_smallist_number(&stacks->var_a, &stacks->head_a, j);
-}
-
 void	cases(t_stack	*stacks, int j)
 {
 	int		i;
@@ -174,13 +103,10 @@ int	main(int argc, char *argv[])
 		j = i;
 		while (--i >= 0)
 			push(&stacks.var_a, &stacks.head_a, ft_atoi(splited[i]));
+		free_parsing(splited);
 		j = smallistnumber(&stacks.var_a);
 		cases(&stacks, j);
-		return (0);
-	}
-	else
-	{
-		write(1, "ERROR\n", 6);
+		free_everything(&stacks);
 		return (0);
 	}
 }

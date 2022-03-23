@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "checker/checker.h"
-
+#include <unistd.h>
 
 char	*get_next_line(void)
 {
@@ -22,14 +21,17 @@ char	*get_next_line(void)
 	int		i;
 	int		j;
 
-	nbyte = 0;
+	nbyte = 1;
 	j = 0;
 	i = 0;
-	while ((nbyte = read(0, &buff, 1)) && nbyte > 0)
+	while (nbyte > 0)
 	{
+		nbyte = read(0, &buff, 1);
+		if (nbyte <= 0)
+			break ;
 		buffer[j++] = buff;
 		if (buff == '\n')
-			break ;	
+			break ;
 	}
 	buffer[j] = '\0';
 	if (j == 0 && nbyte <= 0)

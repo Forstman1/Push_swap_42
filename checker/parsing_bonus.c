@@ -37,16 +37,12 @@ void	checkvalid(char *str)
 		else if ((str[i] == '+' && isdigit(str[i - 1])) \
 			|| (str[i] == '-' && isdigit(str[i - 1])))
 			error();
-		else if (str[i] == '-' && isdigit(str[i + 1]))
-			i++;
-		else if (str[i] == '+' && isdigit(str[i + 1]))
+		else if ((str[i] == '+' || str[i] == '-') && isdigit(str[i + 1]))
 			i++;
 		else
 			error();
 	}
 	if (i == j)
-		error();
-	if (i == 0)
 		error();
 }
 
@@ -93,6 +89,7 @@ char	**parsings(char **argv, int *i)
 		(*i)++;
 	}
 	splited = ft_split(str, ' ');
+	free(str);
 	*i = 0;
 	while (splited[*i])
 		(*i)++;

@@ -3,7 +3,7 @@
 CFILES  = push_swap.c sa_pa_ra_rra.c sb_pb_rb_rrb.c ss_rr_rrr.c \
 			push_swap_utils.c sorting.c sorting_utils.c sorting_optimazed.c \
 			sa_pa_ra_rra_opt.c sb_pb_rb_rrb_opt.c pushtostackb.c \
-			pushtostackb_utils.c parsing.c push_swap_utils2.c
+			pushtostackb_utils.c parsing.c push_swap_utils2.c othercases.c
 
 OFILES	= $(CFILES:.c=.o)
 
@@ -40,4 +40,4 @@ bonus: $(OBONUS) checker_bonus.c
 	@$(CC) checker_bonus.c $(OBONUS) checker/checker.h libft/libft.a
 
 execute: $(NAME) push_swap.c
-	@./push_swap -1121591983 -1928934132 1068561763 -196721848 2047683031
+	@./push_swap 1191856211 347027449 -1855604579 -708345234 700084491

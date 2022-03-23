@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef CHECKER_H
 # define CHECKER_H
 
@@ -19,7 +18,6 @@
 # include <string.h>
 # include <ctype.h>
 # include "libft/libft.h"
-
 
 typedef struct s_ps
 {
@@ -43,9 +41,8 @@ typedef struct s_stack
 	t_ps	*head_b;
 }	t_stack;
 
-
 char	*get_next_line(void);
-void	pa(t_ps **var_a, t_ps **head_a ,t_ps **var_b, t_ps **head_b);
+void	pa(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b);
 void	sa(t_ps **var, t_ps	**head);
 void	ra(t_ps **var_a, t_ps **head_a);
 void	rra(t_ps **var_a, t_ps **head_a);
@@ -62,6 +59,5 @@ void	switching_sb_sa(t_ps	*lst);
 void	reversing_a_b(t_ps	*lst);
 void	push(t_ps **var, t_ps **head, int i);
 void	check_rules(char	*str, t_stack *stacks);
-
 
 #endif

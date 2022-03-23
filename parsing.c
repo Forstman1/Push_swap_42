@@ -89,6 +89,7 @@ char	**parsing(char **argv, int *i)
 		(*i)++;
 	}
 	splited = ft_split(str, ' ');
+	free(str);
 	*i = 0;
 	while (splited[*i])
 		(*i)++;
