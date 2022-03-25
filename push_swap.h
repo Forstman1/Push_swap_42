@@ -15,7 +15,6 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <ctype.h>
 # include "libft/libft.h"
 
@@ -96,5 +95,7 @@ void	free_everything(t_stack	*stacks);
 void	twocases(t_stack	*stacks, int i);
 void	error(void);
 void	error_duplicate(char	**splited, int *array);
+void	lic_process(t_stack *stacks);
+int		checksorted(t_stack	*stacks);
 
 #endif

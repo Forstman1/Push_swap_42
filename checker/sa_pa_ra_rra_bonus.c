@@ -97,4 +97,5 @@ void	rra(t_ps **var_a, t_ps **head_a)
 	while (lst->next)
 		lst = lst->next;
 	r_reversing_a(lst);
+	*var_a = *head_a;
 }

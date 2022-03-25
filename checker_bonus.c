@@ -18,6 +18,7 @@ void	errors(t_stack *stacks)
 {
 	write(1, "ERROR\n", 6);
 	free_everything(stacks);
+	exit(0);
 }
 
 void	check_rules(char	*str, t_stack *stacks)

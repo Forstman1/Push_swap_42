@@ -13,7 +13,6 @@
 #include "push_swap.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "libft/libft.h"
 #include <ctype.h>
 

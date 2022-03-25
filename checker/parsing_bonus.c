@@ -86,6 +86,7 @@ char	**parsings(char **argv, int *i)
 {
 	char	**splited;
 
+	splited = NULL;
 	splited = parsing_utils(splited, argv, *i);
 	*i = 0;
 	while (splited[*i])

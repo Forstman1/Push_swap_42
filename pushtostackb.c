@@ -67,22 +67,22 @@ static void	subsequence(t_ps	*lst_a)
 	}
 }
 
-static void	lic_process(t_stack *stacks)
+void	lic_process(t_stack *stacks)
 {
 	int		i;
-	int		j;
 	t_ps	*lst_a;
 
 	i = 0;
-	j = 0;
 	lst_a = stacks->head_a;
-	while (lst_a->next)
+	while (lst_a)
 	{
 		if (i < lst_a->index)
 			i = lst_a->index;
 		lst_a = lst_a->next;
 	}
-	j = lst_a->count;
+	lst_a = stacks->head_a;
+	while (lst_a->next)
+		lst_a = lst_a->next;
 	while (lst_a->previous)
 	{
 		if (i == lst_a->index)

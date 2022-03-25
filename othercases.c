@@ -57,30 +57,30 @@ void	threecases(t_stack *stacks)
 void	fivecases(t_stack	*stacks, int j)
 {
 	int		i;
-	int		t;
 	t_ps	*lst_a;
 	t_ps	*lst_b;
 
 	i = 2;
-	t = 2;
 	lst_a = stacks->head_a;
 	lst_b = stacks->head_b;
-	lst_a = stacks->head_a;
-	lst_b = stacks->head_b;
-	if (lst_a->number == j)
-		ra(&stacks->var_a, &stacks->head_a);
-	reset2(stacks);
-	while (i > 0)
+	if (checksorted(stacks))
+		return ;
+	else
 	{
-		pb(&stacks->var_a, &stacks->head_a, &stacks->var_b, &stacks->head_b);
-		i--;
+		if (lst_a->number == j)
+			ra(&stacks->var_a, &stacks->head_a);
+		reset2(stacks);
+		while (i > 0)
+		{
+			pb(&stacks->var_a, &stacks->head_a, \
+				&stacks->var_b, &stacks->head_b);
+			i--;
+		}
+		threecases(stacks);
+		stack_sorting(stacks, j);
+		reset_to_smallist_number(&stacks->var_a, &stacks->head_a, j);
+		reset2(stacks);
 	}
-	reset2(stacks);
-	threecases(stacks);
-	stack_sorting(stacks, j);
-	reset2(stacks);
-	reset_to_smallist_number(&stacks->var_a, &stacks->head_a, j);
-	reset2(stacks);
 }
 
 void	free_parsing(char	**splited)
