@@ -120,7 +120,7 @@ void	stack_sorting(t_stack *stacks, int j)
 	t_ps	*lst_b;
 
 	lst_a = stacks->var_a;
-	lst_b = stacks->var_b;
+	lst_b = stacks->head_b;
 	while (lst_b)
 	{
 		bestmovea(&lst_a, &lst_b, stacks);
@@ -129,7 +129,7 @@ void	stack_sorting(t_stack *stacks, int j)
 		lst_b = stacks->head_b;
 		lst_a = stacks->var_a;
 		pushtoaoptimazed(stacks);
-		pa(&lst_a, &stacks->head_a, &lst_b, &stacks->head_b);
+		pa(&stacks->var_a, &stacks->head_a, &stacks->var_b, &stacks->head_b);
 		stacks->var_a = stacks->head_a;
 		lst_a = stacks->var_a;
 		lst_b = stacks->head_b;

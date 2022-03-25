@@ -14,8 +14,15 @@
 
 void	error(void)
 {
-	printf("ERROR\n");
+	write(1, "ERROR\n", 6);
 	exit(0);
+}
+
+void	error_duplicate(char	**splited, int *array)
+{
+	free_parsing(splited);
+	free(array);
+	error();
 }
 
 void	checkvalid(char *str)
@@ -53,47 +60,37 @@ void	checkduplicate(char	**splited, int i)
 	int	t;
 
 	j = 0;
-	t = 0;
-	array = (int *)malloc(sizeof(int) * (i - 1));
+	array = NULL;
+	array = (int *)malloc(sizeof(int) * i);
 	i = 0;
 	while (splited[i])
 	{
 		array[i] = ft_atoi(splited[i]);
 		i++;
 	}
-	while (j - 1 < i)
+	while (j < i)
 	{
-		t = j + 1;
+		t = 0;
 		while (t < i)
 		{
-			if (array[j] == array[t])
-				error();
+			if ((array[j] == array[t]) && t != j)
+				error_duplicate(splited, array);
 			t++;
 		}
 		j++;
 	}
+	free(array);
 }
 
 char	**parsings(char **argv, int *i)
 {
-	char	*str;
-	int		j;
 	char	**splited;
 
-	str = "";
-	while (argv[*i])
-	{
-		checkvalid(argv[*i]);
-		str = ft_strjoin(str, argv[*i]);
-		str = ft_strjoin(str, " ");
-		(*i)++;
-	}
-	splited = ft_split(str, ' ');
-	free(str);
+	splited = parsing_utils(splited, argv, *i);
 	*i = 0;
 	while (splited[*i])
 		(*i)++;
-	j = *i;
-	checkduplicate(splited, j);
+	checkduplicate(splited, (*i));
+	checkmaxint(splited, (*i));
 	return (splited);
 }

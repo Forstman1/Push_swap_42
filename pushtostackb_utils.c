@@ -59,3 +59,30 @@ void	bestmove_for_a(t_ps **var_a, t_ps **head_a)
 	}
 	*var_a = *head_a;
 }
+
+void	twocases(t_stack	*stacks, int i)
+{
+	int		first;
+	t_ps	*lst;
+	int		second;
+
+	lst = stacks->var_a;
+	if (i == 2)
+	{
+		first = 0;
+		second = 0;
+		first = lst->number;
+		lst = lst->next;
+		second = lst->number;
+		if (first > second)
+			sa(&stacks->var_a, &stacks->head_a);
+	}
+	else
+		return ;
+}
+
+void	error(void)
+{
+	write(1, "ERROR\n", 6);
+	exit(0);
+}

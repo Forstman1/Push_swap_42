@@ -59,5 +59,15 @@ void	switching_sb_sa(t_ps	*lst);
 void	reversing_a_b(t_ps	*lst);
 void	push(t_ps **var, t_ps **head, int i);
 void	check_rules(char	*str, t_stack *stacks);
+void	check_everything(t_stack	*stacks);
+void	free_everything(t_stack	*stacks);
+void	check_sorting(t_stack	*stacks);
+void	error_duplicate(char	**splited, int *array);
+void	free_parsing(char	**splited);
+void	error(void);
+char	**parsing_utils(char	**splited, char	**argv, int i);
+void	checkmaxint(char	**splited, int t);
+void	checkvalid(char *str);
+int		stack_a_rules(t_stack *stacks, char	*str);
 
 #endif

@@ -14,11 +14,11 @@
 
 void	ss(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
 {
-	sa(var_a, head_a);
-	sb(var_b, head_b);
+	sa_opt(var_a, head_a);
+	sb_opt(var_b, head_b);
 	*var_a = *head_a;
 	*var_b = *head_b;
-	printf("ss\n");
+	write(1, "ss\n", 3);
 }
 
 void	rr(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
@@ -27,14 +27,16 @@ void	rr(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
 	rb_opt(var_b, head_b);
 	*var_a = *head_a;
 	*var_b = *head_b;
-	printf("rr\n");
+	write(1, "rr\n", 3);
 }
 
 void	rrr(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
 {
+	(*var_a)->previous = NULL;
+	(*var_b)->previous = NULL;
 	rra_opt(var_a, head_a);
 	rrb_opt(var_b, head_b);
 	*var_a = *head_a;
 	*var_b = *head_b;
-	printf("rrr\n");
+	write(1, "rrr\n", 4);
 }

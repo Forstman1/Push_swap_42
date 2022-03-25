@@ -71,3 +71,10 @@ void	rra_opt(t_ps **var_a, t_ps **head_a)
 		lst = lst->next;
 	r_reversing_a(lst);
 }
+
+void	error_duplicate(char	**splited, int *array)
+{
+	free_parsing(splited);
+	free(array);
+	error();
+}

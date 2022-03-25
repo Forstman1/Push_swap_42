@@ -86,3 +86,30 @@ void	reversing_a_b(t_ps	*lst)
 		lst = lst->next;
 	}
 }
+
+char	**parsing_utils(char	**splited, char	**argv, int i)
+{
+	char	*tmp;
+	char	*str;
+
+	str = NULL;
+	while (argv[i])
+	{
+		checkvalid(argv[i]);
+		if (!str)
+			str = ft_strdup(argv[i]);
+		else
+		{
+			tmp = str;
+			str = ft_strjoin(str, argv[i]);
+			free(tmp);
+		}
+		tmp = str;
+		str = ft_strjoin(str, " ");
+		free(tmp);
+		i++;
+	}
+	splited = ft_split(str, ' ');
+	free(str);
+	return (splited);
+}

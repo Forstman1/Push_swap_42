@@ -22,13 +22,9 @@ void	rules(int first, int second, int third, t_stack *stacks)
 		rra(&stacks->var_a, &stacks->head_a);
 	}
 	else if ((first < third) && (first > second) && (second < third))
-	{
 		sa(&stacks->var_a, &stacks->head_a);
-	}
 	else if ((first > third) && (first > second) && (second < third))
-	{
 		ra(&stacks->var_a, &stacks->head_a);
-	}
 	else if ((first > third) && (first > second) && (second > third))
 	{
 		sa(&stacks->var_a, &stacks->head_a);
@@ -55,7 +51,6 @@ void	threecases(t_stack *stacks)
 	second = lst_a->number;
 	lst_a = lst_a->next;
 	third = lst_a->number;
-	lst_a = stacks->var_a;
 	rules(first, second, third, stacks);
 }
 
@@ -74,15 +69,18 @@ void	fivecases(t_stack	*stacks, int j)
 	lst_b = stacks->head_b;
 	if (lst_a->number == j)
 		ra(&stacks->var_a, &stacks->head_a);
+	reset2(stacks);
 	while (i > 0)
 	{
 		pb(&stacks->var_a, &stacks->head_a, &stacks->var_b, &stacks->head_b);
 		i--;
 	}
-	threecases(stacks);
 	reset2(stacks);
+	threecases(stacks);
 	stack_sorting(stacks, j);
+	reset2(stacks);
 	reset_to_smallist_number(&stacks->var_a, &stacks->head_a, j);
+	reset2(stacks);
 }
 
 void	free_parsing(char	**splited)
@@ -93,10 +91,10 @@ void	free_parsing(char	**splited)
 	i = 0;
 	while (splited[i])
 	{
-		tmp = splited[i];
-		free(tmp);
+		free(splited[i]);
 		i++;
 	}
+	free(splited);
 }
 
 void	free_everything(t_stack	*stacks)
@@ -110,6 +108,16 @@ void	free_everything(t_stack	*stacks)
 		tmp = lst;
 		lst = lst->next;
 		free(tmp);
+		tmp = NULL;
 	}
-	lst = stacks->var_b;
+	lst = NULL;
+	tmp = NULL;
+	lst = stacks->head_b;
+	while (lst)
+	{
+		tmp = lst;
+		lst = lst->next;
+		free(tmp);
+		tmp = NULL;
+	}
 }

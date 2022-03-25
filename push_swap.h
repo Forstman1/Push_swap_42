@@ -93,5 +93,8 @@ void	threecases(t_stack *stacks);
 void	fivecases(t_stack	*stacks, int j);
 void	free_parsing(char	**splited);
 void	free_everything(t_stack	*stacks);
+void	twocases(t_stack	*stacks, int i);
+void	error(void);
+void	error_duplicate(char	**splited, int *array);
 
 #endif

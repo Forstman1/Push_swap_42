@@ -55,8 +55,11 @@ int	smallistnumber(t_ps **var_a)
 
 void	sortingpart(t_stack *stacks, int j)
 {
+	reset2(stacks);
 	resetindex(&stacks->var_a);
+	reset2(stacks);
 	reset_to_smallist_number(&stacks->var_a, &stacks->head_a, j);
+	reset2(stacks);
 	while (stacks->var_a)
 	{
 		stacks->var_a->lic = 0;
@@ -64,8 +67,11 @@ void	sortingpart(t_stack *stacks, int j)
 	}
 	reset2(stacks);
 	lis(&stacks->var_a, &stacks->head_a);
+	reset2(stacks);
 	pushingtostackb(stacks);
+	reset2(stacks);
 	stack_sorting(stacks, j);
+	reset2(stacks);
 	reset_to_smallist_number(&stacks->var_a, &stacks->head_a, j);
 }
 
@@ -81,7 +87,9 @@ void	cases(t_stack	*stacks, int j)
 		i++;
 		lst = lst->next;
 	}
-	if (i == 3)
+	if (i == 1 || i == 2)
+		twocases(stacks, i);
+	else if (i == 3)
 		threecases(stacks);
 	else if (i == 5)
 		fivecases(stacks, j);
@@ -100,7 +108,6 @@ int	main(int argc, char *argv[])
 	if (argc > 1)
 	{
 		splited = parsing(argv, &i);
-		j = i;
 		while (--i >= 0)
 			push(&stacks.var_a, &stacks.head_a, ft_atoi(splited[i]));
 		free_parsing(splited);

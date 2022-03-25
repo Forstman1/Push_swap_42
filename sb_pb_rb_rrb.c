@@ -24,7 +24,7 @@ void	pb(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
 	lst_a->previous = NULL;
 	ft_lstadd(var_b, head_b, lst_a);
 	*var_a = *head_a;
-	printf("pb\n");
+	write(1, "pb\n", 3);
 }
 
 void	switching_sb_sa(t_ps	*lst)
@@ -71,7 +71,7 @@ void	sb(t_ps **var, t_ps	**head)
 	}
 	lst = *head;
 	switching_sb_sa(lst);
-	printf("sb\n");
+	write(1, "sb\n", 3);
 }
 
 void	rb(t_ps **var_b, t_ps **head_b)
@@ -96,7 +96,7 @@ void	rb(t_ps **var_b, t_ps **head_b)
 	lst = *head_b;
 	reversing_a_b(lst);
 	lst = *head_b;
-	printf("rb\n");
+	write(1, "rb\n", 3);
 }
 
 void	rrb(t_ps **var_b, t_ps **head_b)
@@ -123,5 +123,5 @@ void	rrb(t_ps **var_b, t_ps **head_b)
 		lst = lst->previous;
 	}
 	lst = *head_b;
-	printf("rrb\n");
+	write(1, "rrb\n", 4);
 }

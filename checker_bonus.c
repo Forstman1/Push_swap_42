@@ -14,49 +14,34 @@
 #include <stdio.h>
 #include "checker/checker.h"
 
-void	free_everything(t_stack	*stacks)
+void	errors(t_stack *stacks)
 {
-	t_ps	*tmp;
-	t_ps	*lst;
-
-	lst = stacks->var_a;
-	while (lst)
-	{
-		tmp = lst;
-		lst = lst->next;
-		free(tmp);
-	}
-	lst = stacks->var_b;
-	exit(0);
+	write(1, "ERROR\n", 6);
+	free_everything(stacks);
 }
 
 void	check_rules(char	*str, t_stack *stacks)
 {
-	if (ft_strncmp(str, "sa\n", 6) == 0)
-		sa(&stacks->var_a, &stacks->head_a);
-	else if (ft_strncmp(str, "ra\n", 6) == 0)
-		ra(&stacks->var_a, &stacks->head_a);
-	else if (ft_strncmp(str, "pa\n", 6) == 0)
-		pa(&stacks->var_a, &stacks->head_a, &stacks->var_b, &stacks->head_b);
-	else if (ft_strncmp(str, "pb\n", 6) == 0)
+	stacks->var_a = stacks->head_a;
+	if (stack_a_rules(stacks, str))
+		return ;
+	if (ft_strncmp(str, "pb\n", 6) == 0)
 		pb(&stacks->var_a, &stacks->head_a, &stacks->var_b, &stacks->head_b);
-	else if (ft_strncmp(str, "rra\n", 6) == 0)
-		rra(&stacks->var_a, &stacks->head_a);
 	else if (ft_strncmp(str, "sb\n", 6) == 0)
 		sb(&stacks->var_b, &stacks->head_b);
 	else if (ft_strncmp(str, "rb\n", 6) == 0)
 		rb(&stacks->var_b, &stacks->head_b);
 	else if (ft_strncmp(str, "rrb\n", 6) == 0)
+	{
+		stacks->var_b->previous = NULL;
 		rrb(&stacks->var_b, &stacks->head_b);
+	}
 	else if (ft_strncmp(str, "rr\n", 6) == 0)
 		rr(&stacks->var_a, &stacks->head_a, &stacks->var_b, &stacks->head_b);
 	else if (ft_strncmp(str, "rrr\n", 6) == 0)
 		rrr(&stacks->var_a, &stacks->head_a, &stacks->var_b, &stacks->head_b);
 	else
-	{
-		write(1, "ERROR\n", 6);
-		free_everything(stacks);
-	}
+		errors(stacks);
 }
 
 void	check_sorting(t_stack	*stacks)
@@ -64,6 +49,7 @@ void	check_sorting(t_stack	*stacks)
 	int		last_number;
 	t_ps	*lst;
 
+	stacks->var_a = stacks->head_a;
 	lst = stacks->var_a;
 	while (lst->next)
 	{
@@ -114,14 +100,7 @@ int	main(int argc, char *argv[])
 			rules = NULL;
 			rules = get_next_line();
 		}
-		if (stacks.var_b)
-		{
-			write(1, "KO\n", 3);
-			free_everything(&stacks);
-			return (0);
-		}
-		check_sorting(&stacks);
-		free_everything(&stacks);
+		check_everything(&stacks);
 		return (0);
 	}
 }

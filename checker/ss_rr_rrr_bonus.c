@@ -26,6 +26,8 @@ void	rr(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
 
 void	rrr(t_ps **var_a, t_ps **head_a, t_ps **var_b, t_ps **head_b)
 {
+	(*var_a)->previous = NULL;
+	(*var_b)->previous = NULL;
 	rra(var_a, head_a);
 	rrb(var_b, head_b);
 }

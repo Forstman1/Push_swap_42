@@ -83,6 +83,7 @@ void	optimazed_rules(t_ps	*lst_b, t_stack	*stacks)
 
 void	rulesfor_a(t_ps	*lst_b, t_stack	*stacks)
 {
+	stacks->var_a->previous = NULL;
 	while (lst_b->bestmovea < -1)
 	{
 		rra(&stacks->var_a, &stacks->head_a);
@@ -105,14 +106,10 @@ void	rulesfor_b(t_ps	*lst_b, t_stack	*stacks)
 		lst_b->bestmoveb += 1;
 	}
 	reset2(stacks);
-	while (lst_b->bestmoveb > 1)
+	while (lst_b->bestmoveb > 0)
 	{
 		rb(&stacks->var_b, &stacks->head_b);
 		lst_b->bestmoveb -= 1;
 	}
-	if (lst_b->bestmoveb == 1)
-	{
-		sb(&stacks->var_b, &stacks->head_b);
-		lst_b->bestmovea -= 1;
-	}
+	reset2(stacks);
 }

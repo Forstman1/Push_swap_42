@@ -12,12 +12,6 @@
 
 #include "push_swap.h"
 
-void	error(void)
-{
-	printf("ERROR\n");
-	exit(0);
-}
-
 void	checkvalid(char *str)
 {
 	int	i;
@@ -53,46 +47,91 @@ void	checkduplicate(char	**splited, int i)
 	int	t;
 
 	j = 0;
-	t = 0;
-	array = (int *)malloc(sizeof(int) * (i - 1));
+	array = NULL;
+	array = (int *)malloc(sizeof(int) * i);
 	i = 0;
 	while (splited[i])
 	{
 		array[i] = ft_atoi(splited[i]);
 		i++;
 	}
-	while (j - 1 < i)
+	while (j < i)
 	{
-		t = j + 1;
+		t = 0;
 		while (t < i)
 		{
-			if (array[j] == array[t])
-				error();
+			if (array[j] == array[t] && t != j)
+				error_duplicate(splited, array);
 			t++;
 		}
 		j++;
 	}
+	free(array);
+}
+
+void	checkmaxint(char	**splited, int t)
+{
+	int			i;
+	long long	*array;
+
+	i = 0;
+	array = NULL;
+	array = (long long *)malloc(sizeof(long long) * t);
+	while (splited[i])
+	{
+		array[i] = ft_atoi(splited[i]);
+		i++;
+	}
+	i = 0;
+	while (i < t)
+	{
+		if (array[i] >= 2147483648 || array[i] <= -2147483648)
+		{
+			free(array);
+			free_parsing(splited);
+			error();
+		}
+		i++;
+	}
+	free(array);
+}
+
+char	**parsing_utils(char	**splited, char	**argv, int i)
+{
+	char	*tmp;
+	char	*str;
+
+	str = NULL;
+	while (argv[i])
+	{
+		checkvalid(argv[i]);
+		if (!str)
+			str = ft_strdup(argv[i]);
+		else
+		{
+			tmp = str;
+			str = ft_strjoin(str, argv[i]);
+			free(tmp);
+		}
+		tmp = str;
+		str = ft_strjoin(str, " ");
+		free(tmp);
+		i++;
+	}
+	splited = ft_split(str, ' ');
+	free(str);
+	return (splited);
 }
 
 char	**parsing(char **argv, int *i)
 {
-	char	*str;
-	int		j;
 	char	**splited;
 
-	str = "";
-	while (argv[*i])
-	{
-		checkvalid(argv[*i]);
-		str = ft_strjoin(str, argv[*i]);
-		str = ft_strjoin(str, " ");
-		(*i)++;
-	}
-	splited = ft_split(str, ' ');
-	free(str);
+	splited = parsing_utils(splited, argv, *i);
 	*i = 0;
 	while (splited[*i])
 		(*i)++;
-	checkduplicate(splited, j);
+	checkduplicate(splited, *i);
+	checkmaxint(splited, *i);
 	return (splited);
 }
