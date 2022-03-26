@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker/checker.h"
+#include "checker1/checker.h"
 #include <unistd.h>
 
 char	*get_next_line(void)
@@ -64,6 +64,12 @@ void	free_everything(t_stack	*stacks)
 		free(tmp);
 	}
 	lst = stacks->var_b;
+	while (lst)
+	{
+		tmp = lst;
+		lst = lst->next;
+		free(tmp);
+	}
 }
 
 void	checkmaxint(char	**splited, int t)

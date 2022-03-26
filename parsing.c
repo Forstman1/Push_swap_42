@@ -61,11 +61,7 @@ void	checkduplicate(char	**splited, int i)
 		while (t < i)
 		{
 			if (array[j] == array[t] && t != j)
-			{
-				printf("%d|-|%d\n", j, t);
-				printf("%d|ana hna-|%d\n", array[j], array[t]);
 				error_duplicate(splited, array);
-			}
 			t++;
 		}
 		j++;

@@ -110,6 +110,12 @@ int	main(int argc, char *argv[])
 		while (--i >= 0)
 			push(&stacks.var_a, &stacks.head_a, ft_atoi(splited[i]));
 		free_parsing(splited);
+		while (stacks.var_a)
+		{
+			printf("%d\n", stacks.var_a->number);
+			stacks.var_a = stacks.var_a->next;
+		}
+		stacks.var_a = stacks.head_a;
 		j = smallistnumber(&stacks.var_a);
 		cases(&stacks, j);
 		free_everything(&stacks);

@@ -12,7 +12,7 @@
 
 #include <unistd.h>
 #include <stdio.h>
-#include "checker/checker.h"
+#include "checker1/checker.h"
 
 void	errors(t_stack *stacks)
 {
